@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("api/library/book")
+@RequestMapping("/api/library/book")
 public class BookController {
 
     private BookService bookService;

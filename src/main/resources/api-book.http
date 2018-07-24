@@ -1,3 +1,5 @@
+// LEVEL I endpoints;
+
 GET http://localhost:8080/api/library/book/list
 
 ###
@@ -27,3 +29,18 @@ Content-Type: application/json
     "title": "Bar",
     "price": "25.10"
 }
+
+
+
+//Level II endpoints;
+###
+
+POST http://localhost:8080/api/bookstore/login
+Content-Type: application/json
+
+{
+    "username": "root",
+    "password": "root"
+}
+
+###
