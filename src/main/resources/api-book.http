@@ -40,26 +40,45 @@ Content-Type: application/json
 
 {
     "username": "root",
-    "password": "root_pass"
+    "password": "root"
 }
-
-### authorized request
-
-GET http://localhost:8080/api/hello
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzYzMjc1NCwiZXhwIjoxNTMzNjY4NzU0fQ.c23ipS8TsKAUGkQ8eXNEY5i6-cAlmgKxEXPFDlgTxJQ
-
-### unauthorized request
-
-GET http://localhost:8080/api/hello
 
 ###
 
 POST http://localhost:8080/api/bookstore/login
+
+### authorized request
+
+GET http://localhost:8080/api/bookstore/book/list
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzYzNzM1OSwiZXhwIjoxNTMzNjczMzU5fQ.vLP88i05irWqQBd5R3EJQ8jZTMAC3IQorVChixQrhDg
+
+###
+
+POST http://localhost:8080/api/bookstore/book
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzYzNzM1OSwiZXhwIjoxNTMzNjczMzU5fQ.vLP88i05irWqQBd5R3EJQ8jZTMAC3IQorVChixQrhDg
 Content-Type: application/json
 
 {
-    "username": "hello",
-    "password": "hello_pass"
+    "category": "novel",
+    "author": "Tolstoy A.N.",
+    "title": "War and Piece",
+    "price": "99.900"
+}
+
+### unauthorized request
+
+GET http://localhost:8080/api/bookstore/book/list
+
+### unauthorized request
+
+POST http://localhost:8080/api/bookstore/book
+Content-Type: application/json
+
+{
+    "category": "novel",
+    "author": "Tolstoy A.N.",
+    "title": "War and Piece",
+    "price": "99.900"
 }
 
 ###

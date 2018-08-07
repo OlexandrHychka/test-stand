@@ -1,4 +1,4 @@
-package com.gmail.maksimus40a.test.stand.security;
+package com.gmail.maksimus40a.test.stand.security.service;
 
 import com.gmail.maksimus40a.test.stand.security.jwt.JwtTokenProvider;
 import com.gmail.maksimus40a.test.stand.security.repository.UserRepository;

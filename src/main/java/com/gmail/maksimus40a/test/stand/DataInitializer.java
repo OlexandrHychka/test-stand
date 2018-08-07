@@ -54,13 +54,13 @@ public class DataInitializer implements CommandLineRunner {
         userRepository.addUsers(Arrays.asList(
                 User.builder()
                         .username("root")
-                        .password(passwordEncoder.encode("root_pass"))
+                        .password(passwordEncoder.encode("root"))
                         .roles(Collections.singletonList("ROLE_USER"))
                         .build()
                 ,
                 User.builder()
                         .username("user")
-                        .password(passwordEncoder.encode("user_pass"))
+                        .password(passwordEncoder.encode("password"))
                         .roles(Collections.singletonList("ROLE_USER"))
                         .build()
         ));

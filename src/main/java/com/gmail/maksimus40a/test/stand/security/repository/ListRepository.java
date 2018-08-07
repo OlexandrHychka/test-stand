@@ -4,16 +4,16 @@ import com.gmail.maksimus40a.test.stand.security.domain.User;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Repository
 @Qualifier("list")
 public class ListRepository implements UserRepository {
 
-    private List<User> users = new ArrayList<>();
+    private List<User> users = new CopyOnWriteArrayList<>();
 
     @Override
     public Optional<User> findByUserName(String userName) {
