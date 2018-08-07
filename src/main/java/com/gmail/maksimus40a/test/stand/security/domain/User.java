@@ -1,19 +1,15 @@
 package com.gmail.maksimus40a.test.stand.security.domain;
 
 import lombok.*;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Entity
-@Table(name = "users")
 @Data
 @Builder
 @NoArgsConstructor
@@ -21,15 +17,10 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode
 public class User implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String username;
-
     private String password;
 
-    @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 

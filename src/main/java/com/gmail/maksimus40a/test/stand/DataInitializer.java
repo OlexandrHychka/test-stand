@@ -3,7 +3,6 @@ package com.gmail.maksimus40a.test.stand;
 import com.gmail.maksimus40a.test.stand.book.Book;
 import com.gmail.maksimus40a.test.stand.book.repositories.BookRepository;
 import com.gmail.maksimus40a.test.stand.security.domain.User;
-import com.gmail.maksimus40a.test.stand.security.repository.JpaUserRepository;
 import com.gmail.maksimus40a.test.stand.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,17 +21,13 @@ public class DataInitializer implements CommandLineRunner {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
 
-    //TODO Experimental :: must remove
-    private JpaUserRepository jpaUserRepository;
-
     @Autowired
     public DataInitializer(@Qualifier("db") BookRepository bookRepository,
-                           UserRepository userRepository,
-                           PasswordEncoder passwordEncoder, JpaUserRepository jpaUserRepository) {
+                           @Qualifier("list") UserRepository userRepository,
+                           PasswordEncoder passwordEncoder) {
         this.bookRepository = bookRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.jpaUserRepository = jpaUserRepository;
     }
 
     @Override
@@ -55,18 +50,20 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void initUserData() {
-        Arrays.asList(
+        userRepository.deleteAll();
+        userRepository.addUsers(Arrays.asList(
                 User.builder()
                         .username("root")
-                        .password(this.passwordEncoder.encode("root"))
+                        .password(passwordEncoder.encode("root_pass"))
                         .roles(Collections.singletonList("ROLE_USER"))
                         .build()
                 ,
                 User.builder()
                         .username("user")
-                        .password(this.passwordEncoder.encode("user"))
+                        .password(passwordEncoder.encode("user_pass"))
                         .roles(Collections.singletonList("ROLE_USER"))
                         .build()
-        ).forEach(jpaUserRepository::save);
+        ));
+        userRepository.findAll().forEach(System.out::println);
     }
 }

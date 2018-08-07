@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.PostConstruct;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -61,5 +63,20 @@ public class DatabaseUserRepository implements UserRepository {
         Integer newUserId = generatedKeyHolder.getKey().intValue();
         user.setId(Long.valueOf(newUserId));
         return user;
+    }
+
+    @Override
+    public List<User> findAll() {
+        return null;
+    }
+
+    @Override
+    public void deleteAll() {
+
+    }
+
+    @Override
+    public void addUsers(Collection<User> users) {
+
     }
 }

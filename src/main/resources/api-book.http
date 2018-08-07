@@ -40,7 +40,26 @@ Content-Type: application/json
 
 {
     "username": "root",
-    "password": "root"
+    "password": "root_pass"
+}
+
+### authorized request
+
+GET http://localhost:8080/api/hello
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzYzMjc1NCwiZXhwIjoxNTMzNjY4NzU0fQ.c23ipS8TsKAUGkQ8eXNEY5i6-cAlmgKxEXPFDlgTxJQ
+
+### unauthorized request
+
+GET http://localhost:8080/api/hello
+
+###
+
+POST http://localhost:8080/api/bookstore/login
+Content-Type: application/json
+
+{
+    "username": "hello",
+    "password": "hello_pass"
 }
 
 ###
