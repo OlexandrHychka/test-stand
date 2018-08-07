@@ -14,7 +14,7 @@ GET http://localhost:8080/api/library/book/list?category=repetitionCategory
 
 ###
 
-GET http://localhost:8080/api/library/book/list?category=repetitionCategory&limit=10
+GET http://localhost:8080/api/library/book/list?category=repetitionCategory&limit=2
 
 ###
 
@@ -27,3 +27,5 @@ Content-Type: application/json
     "title": "Bar",
     "price": "25.10"
 }
+
+###

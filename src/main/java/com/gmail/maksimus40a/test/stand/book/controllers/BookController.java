@@ -1,5 +1,7 @@
-package com.gmail.maksimus40a.test.stand.book;
+package com.gmail.maksimus40a.test.stand.book.controllers;
 
+import com.gmail.maksimus40a.test.stand.book.domain.Book;
+import com.gmail.maksimus40a.test.stand.book.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

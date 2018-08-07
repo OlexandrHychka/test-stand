@@ -1,6 +1,6 @@
 package com.gmail.maksimus40a.test.stand.book.repositories;
 
-import com.gmail.maksimus40a.test.stand.book.Book;
+import com.gmail.maksimus40a.test.stand.book.domain.Book;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +13,7 @@ public interface BookRepository {
 
     Optional<Book> getBookById(Integer id);
 
-    List<Book> getBooksByCriteria(String key, String value, long limit);
+    List<Book> getBooksByCriteria(String nameOfCriteria, String valueOfCriteria, long limit);
 
     Book addBook(Book book);
 

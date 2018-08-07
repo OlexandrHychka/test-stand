@@ -1,12 +1,12 @@
 package com.gmail.maksimus40a.test.stand.book.repositories;
 
-import com.gmail.maksimus40a.test.stand.book.Book;
-import com.gmail.maksimus40a.test.stand.book.NoSuchSearchCriteriaException;
+import com.gmail.maksimus40a.test.stand.book.domain.Book;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ReflectionUtils;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Qualifier("hash")
 public class HashMapRepository implements BookRepository {
 
-    private Map<Integer, Book> bookMap = new LinkedHashMap<>();
+    private Map<Integer, Book> bookMap = new ConcurrentHashMap<>();
     private AtomicInteger nextIdGenerator = new AtomicInteger(1);
 
     @Override
@@ -42,8 +42,7 @@ public class HashMapRepository implements BookRepository {
             try {
                 return ReflectionUtils.findField(Book.class, fieldName).get(book).equals(fieldValue);
             } catch (IllegalAccessException e) {
-                String message = "No books with this search request parameter = " + fieldName;
-                throw new NoSuchSearchCriteriaException(message, e);
+                throw new RuntimeException("Error occur in repository layer.", e);
             }
         };
     }

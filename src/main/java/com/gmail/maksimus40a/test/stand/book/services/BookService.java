@@ -1,4 +1,6 @@
-package com.gmail.maksimus40a.test.stand.book;
+package com.gmail.maksimus40a.test.stand.book.services;
+
+import com.gmail.maksimus40a.test.stand.book.domain.Book;
 
 import java.util.List;
 import java.util.Map;

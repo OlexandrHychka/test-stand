@@ -1,6 +1,6 @@
 package com.gmail.maksimus40a.test.stand.book.repositories;
 
-import com.gmail.maksimus40a.test.stand.book.Book;
+import com.gmail.maksimus40a.test.stand.book.domain.Book;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;

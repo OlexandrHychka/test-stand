@@ -1,5 +1,6 @@
-package com.gmail.maksimus40a.test.stand.book;
+package com.gmail.maksimus40a.test.stand.book.domain;
 
+import com.gmail.maksimus40a.test.stand.book.domain.Book;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

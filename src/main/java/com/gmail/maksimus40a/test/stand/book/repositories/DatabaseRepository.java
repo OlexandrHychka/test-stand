@@ -1,7 +1,7 @@
 package com.gmail.maksimus40a.test.stand.book.repositories;
 
-import com.gmail.maksimus40a.test.stand.book.Book;
-import com.gmail.maksimus40a.test.stand.book.BookRowMapper;
+import com.gmail.maksimus40a.test.stand.book.domain.Book;
+import com.gmail.maksimus40a.test.stand.book.domain.BookRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;

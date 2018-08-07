@@ -1,6 +1,6 @@
 package com.gmail.maksimus40a.test.stand;
 
-import com.gmail.maksimus40a.test.stand.book.Book;
+import com.gmail.maksimus40a.test.stand.book.domain.Book;
 import com.gmail.maksimus40a.test.stand.book.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
