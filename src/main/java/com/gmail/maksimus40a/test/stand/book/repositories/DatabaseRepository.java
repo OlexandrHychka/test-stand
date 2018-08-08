@@ -9,6 +9,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
@@ -23,6 +24,19 @@ public class DatabaseRepository implements BookRepository {
     @Autowired
     public DatabaseRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    @PostConstruct
+    public void init() {
+        String sql = "CREATE TABLE IF NOT EXISTS books(" +
+                "  id       INT(11)        NOT NULL AUTO_INCREMENT," +
+                "  category VARCHAR(100)   NOT NULL," +
+                "  author   VARCHAR(100)   NOT NULL," +
+                "  title    VARCHAR(100)   NOT NULL," +
+                "  price    DECIMAL(10, 2) NOT NULL," +
+                "  PRIMARY KEY (id)" +
+                ");";
+        jdbcTemplate.execute(sql);
     }
 
     @Override

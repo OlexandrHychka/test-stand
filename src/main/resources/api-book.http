@@ -1,3 +1,5 @@
+// LEVEL I endpoints;
+
 GET http://localhost:8080/api/library/book/list
 
 ###
@@ -26,6 +28,57 @@ Content-Type: application/json
     "author": "Foo",
     "title": "Bar",
     "price": "25.10"
+}
+
+
+
+//Level II endpoints;
+###
+
+POST http://localhost:8080/api/bookstore/login
+Content-Type: application/json
+
+{
+    "username": "root",
+    "password": "root"
+}
+
+###
+
+POST http://localhost:8080/api/bookstore/login
+
+### authorized request
+
+GET http://localhost:8080/api/bookstore/book/list
+Authorization: {place to token}
+
+###
+
+POST http://localhost:8080/api/bookstore/book
+Authorization: {place to token}
+Content-Type: application/json
+
+{
+    "category": "novel",
+    "author": "Tolstoy A.N.",
+    "title": "War and Piece",
+    "price": "99.900"
+}
+
+### unauthorized request
+
+GET http://localhost:8080/api/bookstore/book/list
+
+### unauthorized request
+
+POST http://localhost:8080/api/bookstore/book
+Content-Type: application/json
+
+{
+    "category": "novel",
+    "author": "Tolstoy A.N.",
+    "title": "War and Piece",
+    "price": "99.900"
 }
 
 ###
