@@ -14,6 +14,8 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 
+import static com.gmail.maksimus40a.test.stand.security.service.HardcodeUserCredentials.*;
+
 @Component
 public class DataInitializer implements CommandLineRunner {
 
@@ -59,8 +61,8 @@ public class DataInitializer implements CommandLineRunner {
                         .build()
                 ,
                 User.builder()
-                        .username("user")
-                        .password(passwordEncoder.encode("password"))
+                        .username(HARDCODE_USER_NAME.getCredential())
+                        .password(passwordEncoder.encode(HARDCODE_USER_PASSWORD.getCredential()))
                         .roles(Collections.singletonList("ROLE_USER"))
                         .build()
         ));

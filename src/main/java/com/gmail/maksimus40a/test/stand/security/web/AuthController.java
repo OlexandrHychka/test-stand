@@ -14,10 +14,7 @@ import static java.util.Objects.*;
 
 @RestController
 @RequestMapping("/api/bookstore")
-public class AuthController {
-
-    private final String HARDCODED_USERNAME = "user";
-    private final String HARDCODED_PASSWORD = "password";
+public class AuthController extends AbstractHardcodeUserCredentialsEntity {
 
     private AuthService authService;
 
@@ -28,12 +25,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity signin(@RequestBody(required = false) AuthenticationRequest data) {
-        if (isNull(data)) {
-            data = AuthenticationRequest.builder()
-                    .username(HARDCODED_USERNAME)
-                    .password(HARDCODED_PASSWORD)
-                    .build();
-        }
+        if (isNull(data)) data = getHardcodeUserDetails();
         String token = "Bearer " + authService.authenticateAndGetToken(data);
         HashMap<Object, Object> model = new HashMap<>();
         model.put("token", token);

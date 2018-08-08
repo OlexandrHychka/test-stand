@@ -50,12 +50,12 @@ POST http://localhost:8080/api/bookstore/login
 ### authorized request
 
 GET http://localhost:8080/api/bookstore/book/list
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzYzNzM1OSwiZXhwIjoxNTMzNjczMzU5fQ.vLP88i05irWqQBd5R3EJQ8jZTMAC3IQorVChixQrhDg
+Authorization: {place to token}
 
 ###
 
 POST http://localhost:8080/api/bookstore/book
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzYzNzM1OSwiZXhwIjoxNTMzNjczMzU5fQ.vLP88i05irWqQBd5R3EJQ8jZTMAC3IQorVChixQrhDg
+Authorization: {place to token}
 Content-Type: application/json
 
 {
