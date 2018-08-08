@@ -1,0 +1,46 @@
+POST http://localhost:8080/api/itcompany/login
+
+###
+
+GET http://localhost:8080/api/itcompany/list
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzcyNDA3NCwiZXhwIjoxNTMzNzYwMDc0fQ.fd7sd47zkPpDjjmnjq15Q-IadwObt1AeGxIz-XWdBJ0
+
+###
+
+GET http://localhost:8080/api/itcompany/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzcyNDA3NCwiZXhwIjoxNTMzNzYwMDc0fQ.fd7sd47zkPpDjjmnjq15Q-IadwObt1AeGxIz-XWdBJ0
+
+###
+
+POST http://localhost:8080/api/itcompany
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzcyNDA3NCwiZXhwIjoxNTMzNzYwMDc0fQ.fd7sd47zkPpDjjmnjq15Q-IadwObt1AeGxIz-XWdBJ0
+Content-Type: application/json
+
+{
+    "firstName": "Emma",
+    "lastName": "Tomphson",
+    "email": "emmaTom@gmail.com",
+    "career": "Project Manager",
+    "skills": ["Scrum", "Agile"]
+}
+
+###
+
+PUT http://localhost:8080/api/itcompany/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzcyNDA3NCwiZXhwIjoxNTMzNzYwMDc0fQ.fd7sd47zkPpDjjmnjq15Q-IadwObt1AeGxIz-XWdBJ0
+Content-Type: application/json
+
+{
+    "firstName": "Emma",
+    "lastName": "Tomphson",
+    "email": "emmaTomphson@gmail.com",
+    "career": "Developer",
+    "skills": ["Java", "Spring", "Scala"]
+}
+
+###
+
+DELETE http://localhost:8080/api/itcompany/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzcyNDA3NCwiZXhwIjoxNTMzNzYwMDc0fQ.fd7sd47zkPpDjjmnjq15Q-IadwObt1AeGxIz-XWdBJ0
+
+###

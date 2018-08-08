@@ -1,0 +1,31 @@
+// LEVEL I endpoints;
+
+GET http://localhost:8080/api/library/book/list
+
+###
+
+GET http://localhost:8080/api/library/book/3
+
+###
+
+GET http://localhost:8080/api/library/book/list?author=repetitiveAuthor
+
+###
+
+GET http://localhost:8080/api/library/book/list?category=repetitionCategory
+
+###
+
+GET http://localhost:8080/api/library/book/list?category=repetitionCategory&limit=2
+
+###
+
+POST http://localhost:8080/api/library/book
+Content-Type: application/json
+
+{
+    "category": "horror",
+    "author": "Foo",
+    "title": "Bar",
+    "price": "25.10"
+}
