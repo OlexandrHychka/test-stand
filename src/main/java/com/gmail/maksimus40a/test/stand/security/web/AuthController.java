@@ -13,7 +13,6 @@ import java.util.HashMap;
 import static java.util.Objects.*;
 
 @RestController
-@RequestMapping("/api/bookstore")
 public class AuthController extends AbstractHardcodeUserCredentialsEntity {
 
     private AuthService authService;
@@ -23,8 +22,17 @@ public class AuthController extends AbstractHardcodeUserCredentialsEntity {
         this.authService = authService;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity signin(@RequestBody(required = false) AuthenticationRequest data) {
+    @PostMapping("/api/bookstore/login")
+    public ResponseEntity signInBookstore(@RequestBody(required = false) AuthenticationRequest data) {
+        return signIn(data);
+    }
+
+    @PostMapping("/api/itcompany/login")
+    public ResponseEntity signInItCompany(@RequestBody(required = false) AuthenticationRequest data) {
+        return signIn(data);
+    }
+
+    private ResponseEntity signIn(AuthenticationRequest data) {
         if (isNull(data)) data = getHardcodeUserDetails();
         String token = "Bearer " + authService.authenticateAndGetToken(data);
         HashMap<Object, Object> model = new HashMap<>();

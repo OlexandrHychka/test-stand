@@ -82,3 +82,9 @@ Content-Type: application/json
 }
 
 ###
+
+//Level III endpoints;
+
+POST http://localhost:8080/api/itcompany/login
+
+###
