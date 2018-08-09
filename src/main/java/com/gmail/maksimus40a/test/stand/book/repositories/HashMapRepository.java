@@ -12,7 +12,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Repository
-@Qualifier("hash")
+@Qualifier("hash-book")
 public class HashMapRepository implements BookRepository {
 
     private Map<Integer, Book> bookMap = new ConcurrentHashMap<>();

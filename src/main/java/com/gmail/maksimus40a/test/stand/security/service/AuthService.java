@@ -22,7 +22,7 @@ public class AuthService {
     @Autowired
     public AuthService(AuthenticationManager authenticationManager,
                        JwtTokenProvider tokenProvider,
-                       @Qualifier("list") UserRepository userRepository) {
+                       @Qualifier("hash-user") UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
         this.tokenProvider = tokenProvider;
         this.userRepository = userRepository;

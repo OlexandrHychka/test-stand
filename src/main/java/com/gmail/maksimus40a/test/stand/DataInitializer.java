@@ -24,8 +24,8 @@ public class DataInitializer implements CommandLineRunner {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public DataInitializer(@Qualifier("db") BookRepository bookRepository,
-                           @Qualifier("list") UserRepository userRepository,
+    public DataInitializer(@Qualifier("hash-book") BookRepository bookRepository,
+                           @Qualifier("hash-user") UserRepository userRepository,
                            PasswordEncoder passwordEncoder) {
         this.bookRepository = bookRepository;
         this.userRepository = userRepository;
@@ -58,12 +58,20 @@ public class DataInitializer implements CommandLineRunner {
                         .username("root")
                         .password(passwordEncoder.encode("root"))
                         .roles(Collections.singletonList("ROLE_USER"))
+                        .accountNonExpired(true)
+                        .accountNonLocked(true)
+                        .credentialsNonExpired(true)
+                        .enabled(true)
                         .build()
                 ,
                 User.builder()
                         .username(HARDCODE_USER_NAME.getCredential())
                         .password(passwordEncoder.encode(HARDCODE_USER_PASSWORD.getCredential()))
                         .roles(Collections.singletonList("ROLE_USER"))
+                        .accountNonExpired(true)
+                        .accountNonLocked(true)
+                        .credentialsNonExpired(true)
+                        .enabled(true)
                         .build()
         ));
         userRepository.findAll().forEach(System.out::println);

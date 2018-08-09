@@ -15,7 +15,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Autowired
-    public CustomUserDetailsService(@Qualifier("list") UserRepository userRepository) {
+    public CustomUserDetailsService(@Qualifier("hash-user") UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

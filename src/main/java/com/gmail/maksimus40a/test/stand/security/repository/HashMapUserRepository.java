@@ -4,20 +4,21 @@ import com.gmail.maksimus40a.test.stand.security.domain.User;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
-@Qualifier("list")
-public class ListRepository implements UserRepository {
+@Qualifier("hash-user")
+public class HashMapUserRepository implements UserRepository {
 
-    private List<User> users = new CopyOnWriteArrayList<>();
+    private Map<Integer, User> users = new ConcurrentHashMap<>();
+    private AtomicInteger nextIdGenerator = new AtomicInteger(1);
 
     @Override
     public Optional<User> findByUserName(String userName) {
-        return users.stream()
+        return users.values()
+                .stream()
                 .filter(user -> user.getUsername().equals(userName))
                 .findFirst();
     }
@@ -25,13 +26,15 @@ public class ListRepository implements UserRepository {
     @Override
     public User addUser(User user) {
         checkNotUniqueUsername(user);
-        users.add(user);
+        Integer id = nextId();
+        user.setId(id);
+        users.put(id, user);
         return user;
     }
 
     @Override
     public List<User> findAll() {
-        return users;
+        return new ArrayList<>(users.values());
     }
 
     @Override
@@ -40,16 +43,17 @@ public class ListRepository implements UserRepository {
     }
 
     @Override
-    public void addUsers(Collection<User> anotherUsers) {
-        for (User user : anotherUsers) {
-            checkNotUniqueUsername(user);
-        }
-        users.addAll(anotherUsers);
+    public void addUsers(Collection<User> users) {
+        users.forEach(this::addUser);
     }
 
     private void checkNotUniqueUsername(User user) {
         if (findByUserName(user.getUsername()).isPresent()) {
             throw new SuchUserIsPresentException("User with a such username is present, please choose a new user name.");
         }
+    }
+
+    private Integer nextId() {
+        return nextIdGenerator.getAndIncrement();
     }
 }

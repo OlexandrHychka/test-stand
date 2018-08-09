@@ -21,7 +21,7 @@ public class BookServiceImpl implements BookService {
     private BookRepository bookRepository;
 
     @Autowired
-    public BookServiceImpl(@Qualifier("db") BookRepository bookRepository) {
+    public BookServiceImpl(@Qualifier("hash-book") BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
