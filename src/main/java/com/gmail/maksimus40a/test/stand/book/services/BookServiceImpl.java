@@ -6,23 +6,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.AccessibleObject;
+import javax.annotation.PostConstruct;
 import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Stream;
 
 @Service
 public class BookServiceImpl implements BookService {
 
     private final String LIMIT_FIELD_NOTATION = "limit";
-    private final String NO_SUCH_CRITERIA_MARKER = "???";
 
     private BookRepository bookRepository;
+    private List<String> bookFieldsNames = new ArrayList<>();
 
     @Autowired
     public BookServiceImpl(@Qualifier("hash-book") BookRepository bookRepository) {
         this.bookRepository = bookRepository;
+    }
+
+    @PostConstruct
+    public void init() {
+        Stream.of(Book.class.getDeclaredFields())
+                .peek(field -> field.setAccessible(true))
+                .map(Field::getName)
+                .forEach(bookFieldsNames::add);
     }
 
     @Override
@@ -31,24 +38,21 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getBooksByCriteria(Map<String, String> params) {
-        Integer limit = params.containsKey(LIMIT_FIELD_NOTATION) ?
-                Integer.valueOf(params.get(LIMIT_FIELD_NOTATION)) :
+    public List<Book> getBooksByCriteria(Map<String, String> requestParams) {
+        int limit = (requestParams.containsKey(LIMIT_FIELD_NOTATION)) ?
+                Integer.parseInt(requestParams.get(LIMIT_FIELD_NOTATION)) :
                 Integer.MAX_VALUE;
-        Field[] fields = Book.class.getDeclaredFields();
-        AccessibleObject.setAccessible(fields, true);
-        String criteriaName = null;
-        for (Field field : fields) {
-            if (params.containsKey(field.getName())) {
-                criteriaName = field.getName();
+        requestParams.remove(LIMIT_FIELD_NOTATION);
+        if (requestParams.size() > 1) throw new UnsupportedOperationException("Not support multiply search.");
+        String fieldName = null;
+        for (String fn : bookFieldsNames) {
+            if (requestParams.containsKey(fn)) {
+                fieldName = fn;
             }
         }
-        String criteriaValue = params.getOrDefault(criteriaName, NO_SUCH_CRITERIA_MARKER);
-        if (criteriaValue.equals(NO_SUCH_CRITERIA_MARKER)) {
-            String message = "No books with this search request parameter = " + criteriaValue;
-            throw new NoSuchSearchCriteriaException(message);
-        }
-        return bookRepository.getBooksByCriteria(criteriaName, criteriaValue, limit);
+        if (Objects.isNull(fieldName)) throw new NoSuchSearchCriteriaException("Not such search criteria.");
+        String fieldValue = requestParams.get(fieldName);
+        return bookRepository.getBooksByCriteria(fieldName, fieldValue, limit);
     }
 
     @Override
