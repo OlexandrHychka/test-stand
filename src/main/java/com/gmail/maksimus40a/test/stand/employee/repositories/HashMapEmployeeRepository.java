@@ -2,10 +2,14 @@ package com.gmail.maksimus40a.test.stand.employee.repositories;
 
 import com.gmail.maksimus40a.test.stand.employee.domain.Employee;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ReflectionUtils;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Repository
 public class HashMapEmployeeRepository implements EmployeeRepository {
@@ -21,6 +25,33 @@ public class HashMapEmployeeRepository implements EmployeeRepository {
     @Override
     public List<Employee> getAllEmployees() {
         return new ArrayList<>(employees.values());
+    }
+
+    @Override
+    public List<Employee> getEmployeesByCriteria(String fieldName, String fieldValue, int limit) {
+        return employees.values()
+                .stream()
+                .filter(fieldEqualsPredicate(fieldName, fieldValue))
+                .limit(limit)
+                .collect(Collectors.toList());
+    }
+
+    private Predicate<Employee> fieldEqualsPredicate(String fieldName, String fieldValue) {
+        System.out.println(fieldName + " : " + fieldValue);
+        return employee -> {
+            try {
+                Field field = getFieldOfEntity(Employee.class, fieldName);
+                return field.get(employee).equals(fieldValue);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException("Error occur in repository layer.", e);
+            }
+        };
+    }
+
+    private Field getFieldOfEntity(Class cl, String fieldName) {
+        Field field = ReflectionUtils.findField(cl, fieldName);
+        field.setAccessible(true);
+        return field;
     }
 
     @Override

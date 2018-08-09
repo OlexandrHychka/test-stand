@@ -1,6 +1,5 @@
 package com.gmail.maksimus40a.test.stand.employee.controllers;
 
-import com.gmail.maksimus40a.test.stand.book.domain.Book;
 import com.gmail.maksimus40a.test.stand.employee.domain.Employee;
 import com.gmail.maksimus40a.test.stand.employee.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -22,8 +22,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/list")
-    public List<Employee> getAllEmployees() {
-        return employeeService.getAllEmployees();
+    public List<Employee> getAllEmployees(@RequestParam(required = false) Map<String, String> requestParams) {
+        return (requestParams.isEmpty()) ? employeeService.getAllEmployees() : employeeService.getEmployeesByCriteria(requestParams);
     }
 
     @GetMapping("/{id}")

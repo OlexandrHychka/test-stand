@@ -3,17 +3,17 @@ POST http://localhost:8080/api/itcompany/login
 ###
 
 GET http://localhost:8080/api/itcompany/list
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzcyNDA3NCwiZXhwIjoxNTMzNzYwMDc0fQ.fd7sd47zkPpDjjmnjq15Q-IadwObt1AeGxIz-XWdBJ0
+Authorization: {place to token}
 
 ###
 
 GET http://localhost:8080/api/itcompany/3
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzcyNDA3NCwiZXhwIjoxNTMzNzYwMDc0fQ.fd7sd47zkPpDjjmnjq15Q-IadwObt1AeGxIz-XWdBJ0
+Authorization: {place to token}
 
 ###
 
 POST http://localhost:8080/api/itcompany
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzcyNDA3NCwiZXhwIjoxNTMzNzYwMDc0fQ.fd7sd47zkPpDjjmnjq15Q-IadwObt1AeGxIz-XWdBJ0
+Authorization: {place to token}
 Content-Type: application/json
 
 {
@@ -27,7 +27,7 @@ Content-Type: application/json
 ###
 
 PUT http://localhost:8080/api/itcompany/3
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzcyNDA3NCwiZXhwIjoxNTMzNzYwMDc0fQ.fd7sd47zkPpDjjmnjq15Q-IadwObt1AeGxIz-XWdBJ0
+Authorization: {place to token}
 Content-Type: application/json
 
 {
@@ -41,6 +41,16 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:8080/api/itcompany/3
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzcyNDA3NCwiZXhwIjoxNTMzNzYwMDc0fQ.fd7sd47zkPpDjjmnjq15Q-IadwObt1AeGxIz-XWdBJ0
+Authorization: {place to token}
+
+###
+
+GET http://localhost:8080/api/itcompany/test?hello=world&limit=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzcyODg3OSwiZXhwIjoxNTMzNzY0ODc5fQ.JTtEbDWp_BDW8vrhhx86KkjD9wj1EMFN5gv_0T3qu90
+
+###
+
+GET http://localhost:8080/api/itcompany/list?email=egestas.rhoncus.Proin@massaQuisqueporttitor.org
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUzMzgwNDU4NiwiZXhwIjoxNTMzODQwNTg2fQ.Q_tkj4JxbfGvr8LGj0dI2mjl73YOtQ5LtXPpzNOqBys
 
 ###
