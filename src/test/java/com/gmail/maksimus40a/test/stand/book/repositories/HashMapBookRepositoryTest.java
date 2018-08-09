@@ -16,13 +16,13 @@ import static org.hamcrest.Matchers.isA;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-class HashMapRepositoryTest {
+class HashMapBookRepositoryTest {
 
     private BookRepository testObject;
 
     @BeforeEach
     void setUp() {
-        testObject = new HashMapRepository();
+        testObject = new HashMapBookRepository();
         Arrays.asList(
                 new Book("category1", "author1", "title1", BigDecimal.ONE),
                 new Book("repetitionCategory", "author2", "title2", BigDecimal.ONE),

@@ -1,6 +1,7 @@
 package com.gmail.maksimus40a.test.stand.employee.repositories;
 
 import com.gmail.maksimus40a.test.stand.employee.domain.Employee;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ReflectionUtils;
 
@@ -12,6 +13,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Repository
+@Qualifier("hash-employee")
 public class HashMapEmployeeRepository implements EmployeeRepository {
 
     private Map<Integer, Employee> employees = new ConcurrentHashMap<>();

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ReflectionUtils;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Repository
 @Qualifier("hash-book")
-public class HashMapRepository implements BookRepository {
+public class HashMapBookRepository implements BookRepository {
 
     private Map<Integer, Book> bookMap = new ConcurrentHashMap<>();
     private AtomicInteger nextIdGenerator = new AtomicInteger(1);
@@ -38,13 +39,20 @@ public class HashMapRepository implements BookRepository {
     }
 
     private Predicate<Book> fieldEqualsPredicate(String fieldName, String fieldValue) {
-        return book -> {
+        return employee -> {
             try {
-                return ReflectionUtils.findField(Book.class, fieldName).get(book).equals(fieldValue);
+                Field field = getFieldOfEntity(Book.class, fieldName);
+                return field.get(employee).equals(fieldValue);
             } catch (IllegalAccessException e) {
                 throw new RuntimeException("Error occur in repository layer.", e);
             }
         };
+    }
+
+    private Field getFieldOfEntity(Class cl, String fieldName) {
+        Field field = ReflectionUtils.findField(cl, fieldName);
+        field.setAccessible(true);
+        return field;
     }
 
     @Override
