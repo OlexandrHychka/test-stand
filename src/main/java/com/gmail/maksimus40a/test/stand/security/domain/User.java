@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 public class User implements UserDetails {
 
     private Integer id;
