@@ -15,7 +15,11 @@ GET http://localhost:8080/api/library/book/list?category=repetitionCategory
 
 ###
 
-GET http://localhost:8080/api/library/book/list?category=repetitionCategory&limit=2
+GET http://localhost:8080/api/library/book/list?author=repetitiveAuthor&limit=2
+
+###
+
+GET http://localhost:8080/api/library/book/list?price=8
 
 ###
 
@@ -44,5 +48,9 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:8080/api/library/book/9
+
+###
+
+GET http://localhost:8080/api/library/book/test?abracadabra=100&limit=10
 
 ###

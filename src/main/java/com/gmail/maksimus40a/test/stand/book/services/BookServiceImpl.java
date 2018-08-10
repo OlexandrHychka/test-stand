@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.lang.reflect.Field;
 import java.util.*;
-import java.util.stream.Stream;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -17,19 +14,11 @@ public class BookServiceImpl implements BookService {
     private final String LIMIT_FIELD_NOTATION = "limit";
 
     private BookRepository bookRepository;
-    private List<String> bookFieldsNames = new ArrayList<>();
+    private List<String> bookFieldsNames = new ArrayList<>(Arrays.asList("category", "author", "title", "price"));
 
     @Autowired
     public BookServiceImpl(@Qualifier("hash-book") BookRepository bookRepository) {
         this.bookRepository = bookRepository;
-    }
-
-    @PostConstruct
-    public void init() {
-        Stream.of(Book.class.getDeclaredFields())
-                .peek(field -> field.setAccessible(true))
-                .map(Field::getName)
-                .forEach(bookFieldsNames::add);
     }
 
     @Override
@@ -39,20 +28,27 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getBooksByCriteria(Map<String, String> requestParams) {
-        int limit = (requestParams.containsKey(LIMIT_FIELD_NOTATION)) ?
-                Integer.parseInt(requestParams.get(LIMIT_FIELD_NOTATION)) :
-                Integer.MAX_VALUE;
-        requestParams.remove(LIMIT_FIELD_NOTATION);
-        if (requestParams.size() > 1) throw new UnsupportedOperationException("Not support multiply search.");
-        String fieldName = null;
-        for (String fn : bookFieldsNames) {
-            if (requestParams.containsKey(fn)) {
-                fieldName = fn;
-            }
+        return bookRepository.getBooksByCriteria(getValue(requestParams), getLimit(requestParams));
+    }
+
+    private String getValue(Map<String, String> requestParams) {
+        return requestParams.get(bookFieldsNames.stream()
+                .filter(fieldName -> requestParams.keySet()
+                        .stream()
+                        .anyMatch(field -> field.equals(fieldName)))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchSearchCriteriaException("Not such search criteria.")));
+    }
+
+    private int getLimit(Map<String, String> requestParams) {
+        int limit;
+        if (requestParams.containsKey(LIMIT_FIELD_NOTATION)) {
+            limit = Integer.parseInt(requestParams.get(LIMIT_FIELD_NOTATION));
+            requestParams.remove(LIMIT_FIELD_NOTATION);
+        } else {
+            limit = Integer.MAX_VALUE;
         }
-        if (Objects.isNull(fieldName)) throw new NoSuchSearchCriteriaException("Not such search criteria.");
-        String fieldValue = requestParams.get(fieldName);
-        return bookRepository.getBooksByCriteria(fieldName, fieldValue, limit);
+        return limit;
     }
 
     @Override

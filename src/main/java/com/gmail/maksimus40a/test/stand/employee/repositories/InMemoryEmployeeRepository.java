@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Repository
 @Qualifier("hash-employee")
-public class HashMapEmployeeRepository implements EmployeeRepository {
+public class InMemoryEmployeeRepository implements EmployeeRepository {
 
     private Map<Integer, Employee> employees = new ConcurrentHashMap<>();
     private AtomicInteger nextIdGenerator = new AtomicInteger(1);
@@ -30,30 +30,21 @@ public class HashMapEmployeeRepository implements EmployeeRepository {
     }
 
     @Override
-    public List<Employee> getEmployeesByCriteria(String fieldName, String fieldValue, int limit) {
+    public List<Employee> getEmployeesByCriteria(String criteria, long limit) {
         return employees.values()
                 .stream()
-                .filter(fieldEqualsPredicate(fieldName, fieldValue))
+                .filter(fieldEqualsPredicate(criteria))
                 .limit(limit)
                 .collect(Collectors.toList());
     }
 
-    private Predicate<Employee> fieldEqualsPredicate(String fieldName, String fieldValue) {
-        System.out.println(fieldName + " : " + fieldValue);
-        return employee -> {
-            try {
-                Field field = getFieldOfEntity(Employee.class, fieldName);
-                return field.get(employee).equals(fieldValue);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException("Error occur in repository layer.", e);
-            }
-        };
-    }
-
-    private Field getFieldOfEntity(Class cl, String fieldName) {
-        Field field = ReflectionUtils.findField(cl, fieldName);
-        field.setAccessible(true);
-        return field;
+    private Predicate<Employee> fieldEqualsPredicate(String criteria) {
+        return employee -> employee.getFirstName().equals(criteria) ||
+                employee.getLastName().equals(criteria) ||
+                employee.getEmail().equals(criteria) ||
+                employee.getCareer().equals(criteria) ||
+                employee.getSkills().stream()
+                        .anyMatch(skill -> skill.equals(criteria));
     }
 
     @Override

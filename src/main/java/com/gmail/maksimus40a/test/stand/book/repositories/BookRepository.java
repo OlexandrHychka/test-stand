@@ -13,7 +13,7 @@ public interface BookRepository {
 
     Optional<Book> getBookById(Integer id);
 
-    List<Book> getBooksByCriteria(String nameOfCriteria, String valueOfCriteria, long limit);
+    List<Book> getBooksByCriteria(String criteria, long limit);
 
     Book addBook(Book book);
 

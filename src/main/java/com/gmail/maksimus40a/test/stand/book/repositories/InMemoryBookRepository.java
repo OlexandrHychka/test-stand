@@ -3,9 +3,8 @@ package com.gmail.maksimus40a.test.stand.book.repositories;
 import com.gmail.maksimus40a.test.stand.book.domain.Book;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.ReflectionUtils;
 
-import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Repository
 @Qualifier("hash-book")
-public class HashMapBookRepository implements BookRepository {
+public class InMemoryBookRepository implements BookRepository {
 
     private Map<Integer, Book> bookMap = new ConcurrentHashMap<>();
     private AtomicInteger nextIdGenerator = new AtomicInteger(1);
@@ -30,29 +29,26 @@ public class HashMapBookRepository implements BookRepository {
     }
 
     @Override
-    public List<Book> getBooksByCriteria(String fieldName, String value, long limit) {
+    public List<Book> getBooksByCriteria(String criteria, long limit) {
         return bookMap.values()
                 .stream()
-                .filter(fieldEqualsPredicate(fieldName, value))
+                .filter(fieldEqualsPredicate(criteria))
                 .limit(limit)
                 .collect(Collectors.toList());
     }
 
-    private Predicate<Book> fieldEqualsPredicate(String fieldName, String fieldValue) {
+    private Predicate<Book> fieldEqualsPredicate(String criteria) {
         return employee -> {
+            long price;
             try {
-                Field field = getFieldOfEntity(Book.class, fieldName);
-                return field.get(employee).equals(fieldValue);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException("Error occur in repository layer.", e);
+                price = Long.parseLong(criteria);
+            } catch (NumberFormatException e) {
+                return employee.getAuthor().equals(criteria) ||
+                        employee.getCategory().equals(criteria) ||
+                        employee.getTitle().equals(criteria);
             }
+            return employee.getPrice().compareTo(BigDecimal.valueOf(price)) == 0;
         };
-    }
-
-    private Field getFieldOfEntity(Class cl, String fieldName) {
-        Field field = ReflectionUtils.findField(cl, fieldName);
-        field.setAccessible(true);
-        return field;
     }
 
     @Override

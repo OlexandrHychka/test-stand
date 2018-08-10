@@ -16,13 +16,13 @@ import static org.hamcrest.Matchers.isA;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-class HashMapBookRepositoryTest {
+class InMemoryBookRepositoryTest {
 
     private BookRepository testObject;
 
     @BeforeEach
     void setUp() {
-        testObject = new HashMapBookRepository();
+        testObject = new InMemoryBookRepository();
         Arrays.asList(
                 new Book("category1", "author1", "title1", BigDecimal.ONE),
                 new Book("repetitionCategory", "author2", "title2", BigDecimal.ONE),
@@ -116,7 +116,7 @@ class HashMapBookRepositoryTest {
                     new Book(7, "category6", "repetitiveAuthor", "title7", BigDecimal.ONE),
                     new Book(8, "category7", "repetitiveAuthor", "title8", BigDecimal.ONE)
             );
-            List<Book> actualBooks = testObject.getBooksByCriteria("author", "repetitiveAuthor", Integer.MAX_VALUE);
+            List<Book> actualBooks = testObject.getBooksByCriteria("repetitiveAuthor", Integer.MAX_VALUE);
 
             assertAll(
                     () -> assertThat(actualBooks.size(), is(3)),
@@ -131,7 +131,7 @@ class HashMapBookRepositoryTest {
                     new Book(2, "repetitionCategory", "author2", "title2", BigDecimal.ONE),
                     new Book(3, "repetitionCategory", "author3", "title3", BigDecimal.ONE)
             );
-            List<Book> actualBooks = testObject.getBooksByCriteria("category", "repetitionCategory", Integer.MAX_VALUE);
+            List<Book> actualBooks = testObject.getBooksByCriteria("repetitionCategory", Integer.MAX_VALUE);
 
             assertAll(
                     () -> assertThat(actualBooks.size(), is(2)),
@@ -147,7 +147,7 @@ class HashMapBookRepositoryTest {
                     new Book(7, "category6", "repetitiveAuthor", "title7", BigDecimal.ONE)
             );
             long limit = 2;
-            List<Book> actualBooks = testObject.getBooksByCriteria("author", "repetitiveAuthor", limit);
+            List<Book> actualBooks = testObject.getBooksByCriteria("repetitiveAuthor", limit);
             assertAll(
                     () -> assertThat(actualBooks.size(), is(2)),
                     () -> assertIterableEquals(expectedList, actualBooks)

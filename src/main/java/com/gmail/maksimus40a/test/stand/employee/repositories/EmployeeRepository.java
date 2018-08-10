@@ -11,7 +11,7 @@ public interface EmployeeRepository {
 
     List<Employee> getAllEmployees();
 
-    List<Employee> getEmployeesByCriteria(String fieldName, String fieldValue, int limit);
+    List<Employee> getEmployeesByCriteria(String criteria, long limit);
 
     Optional<Employee> getEmployeeById(Integer id);
 
