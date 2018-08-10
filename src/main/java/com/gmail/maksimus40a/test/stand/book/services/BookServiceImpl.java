@@ -1,7 +1,8 @@
 package com.gmail.maksimus40a.test.stand.book.services;
 
+import com.gmail.maksimus40a.test.stand.bases.BaseRepository;
+import com.gmail.maksimus40a.test.stand.bases.BaseService;
 import com.gmail.maksimus40a.test.stand.book.domain.Book;
-import com.gmail.maksimus40a.test.stand.book.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -9,26 +10,27 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class BookServiceImpl implements BookService {
+@Qualifier("book-service")
+public class BookServiceImpl implements BaseService<Book> {
 
     private final String LIMIT_FIELD_NOTATION = "limit";
 
-    private BookRepository bookRepository;
+    private BaseRepository<Book> bookRepository;
     private List<String> bookFieldsNames = new ArrayList<>(Arrays.asList("category", "author", "title", "price"));
 
     @Autowired
-    public BookServiceImpl(@Qualifier("hash-book") BookRepository bookRepository) {
+    public BookServiceImpl(@Qualifier("book-repository") BaseRepository<Book> bookRepository) {
         this.bookRepository = bookRepository;
     }
 
     @Override
-    public List<Book> getAllBooks() {
-        return bookRepository.getAllBooks();
+    public List<Book> getAllEntities() {
+        return bookRepository.getAllEntities();
     }
 
     @Override
-    public List<Book> getBooksByCriteria(Map<String, String> requestParams) {
-        return bookRepository.getBooksByCriteria(getValue(requestParams), getLimit(requestParams));
+    public List<Book> getEntitiesByCriteria(Map<String, String> requestParams) {
+        return bookRepository.getEntitiesByCriteria(getValue(requestParams), getLimit(requestParams));
     }
 
     private String getValue(Map<String, String> requestParams) {
@@ -45,22 +47,22 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Optional<Book> getBookById(Integer id) {
-        return bookRepository.getBookById(id);
+    public Optional<Book> getEntityById(Integer id) {
+        return bookRepository.getEntityById(id);
     }
 
     @Override
-    public Book addBook(Book book) {
-        return bookRepository.addBook(book);
+    public Book addEntity(Book book) {
+        return bookRepository.addEntity(book);
     }
 
     @Override
-    public Optional<Book> editBook(Integer id, Book editedBook) {
-        return bookRepository.editBook(id, editedBook);
+    public Optional<Book> editEntityById(Integer id, Book editedBook) {
+        return bookRepository.editEntity(id, editedBook);
     }
 
     @Override
-    public boolean deleteBookById(Integer id) {
-        return bookRepository.deleteBookById(id);
+    public Optional<Book> deleteEntityById(Integer id) {
+        return bookRepository.deleteEntityById(id);
     }
 }

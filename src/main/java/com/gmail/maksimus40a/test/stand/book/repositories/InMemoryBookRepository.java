@@ -1,5 +1,6 @@
 package com.gmail.maksimus40a.test.stand.book.repositories;
 
+import com.gmail.maksimus40a.test.stand.bases.BaseRepository;
 import com.gmail.maksimus40a.test.stand.book.domain.Book;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -12,8 +13,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Repository
-@Qualifier("hash-book")
-public class InMemoryBookRepository implements BookRepository {
+@Qualifier("book-repository")
+public class InMemoryBookRepository implements BaseRepository<Book> {
 
     private Map<Integer, Book> bookMap = new ConcurrentHashMap<>();
     private AtomicInteger nextIdGenerator = new AtomicInteger(1);
@@ -24,20 +25,20 @@ public class InMemoryBookRepository implements BookRepository {
     }
 
     @Override
-    public List<Book> getAllBooks() {
+    public List<Book> getAllEntities() {
         return new ArrayList<>(bookMap.values());
     }
 
     @Override
-    public List<Book> getBooksByCriteria(String criteria, long limit) {
+    public List<Book> getEntitiesByCriteria(String criteria, long limit) {
         return bookMap.values()
                 .stream()
-                .filter(fieldEqualsPredicate(criteria))
+                .filter(searchPredicate(criteria))
                 .limit(limit)
                 .collect(Collectors.toList());
     }
 
-    private Predicate<Book> fieldEqualsPredicate(String criteria) {
+    private Predicate<Book> searchPredicate(String criteria) {
         return employee -> {
             long price;
             try {
@@ -52,14 +53,14 @@ public class InMemoryBookRepository implements BookRepository {
     }
 
     @Override
-    public Optional<Book> getBookById(Integer id) {
+    public Optional<Book> getEntityById(Integer id) {
         if (id <= 0) throw new IllegalArgumentException("Id must be greater than 0. Your id = " + id);
         if (id > this.countOfEntities()) return Optional.empty();
         return Optional.ofNullable(bookMap.get(id));
     }
 
     @Override
-    public Book addBook(Book book) {
+    public Book addEntity(Book book) {
         int id = nextId();
         book.setId(id);
         bookMap.put(id, book);
@@ -67,7 +68,7 @@ public class InMemoryBookRepository implements BookRepository {
     }
 
     @Override
-    public Optional<Book> editBook(Integer id, Book editedBook) {
+    public Optional<Book> editEntity(Integer id, Book editedBook) {
         if (id <= 0) throw new IllegalArgumentException("Id must be greater than 0. Your id = " + id);
         if (id > this.countOfEntities()) return Optional.empty();
         Book updated = bookMap.get(id);
@@ -81,11 +82,11 @@ public class InMemoryBookRepository implements BookRepository {
     }
 
     @Override
-    public boolean deleteBookById(Integer id) {
+    public Optional<Book> deleteEntityById(Integer id) {
         if (id < 0) throw new IllegalArgumentException("Id must be greater than 0. Your id = " + id);
-        if (id > this.countOfEntities()) return false;
+        if (id > this.countOfEntities()) Optional.empty();
         Book removed = bookMap.remove(id);
-        return Objects.nonNull(removed);
+        return Optional.ofNullable(removed);
     }
 
     private Integer nextId() {

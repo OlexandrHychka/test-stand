@@ -1,9 +1,8 @@
 package com.gmail.maksimus40a.test.stand;
 
+import com.gmail.maksimus40a.test.stand.bases.BaseRepository;
 import com.gmail.maksimus40a.test.stand.book.domain.Book;
-import com.gmail.maksimus40a.test.stand.book.repositories.BookRepository;
 import com.gmail.maksimus40a.test.stand.employee.domain.Employee;
-import com.gmail.maksimus40a.test.stand.employee.repositories.EmployeeRepository;
 import com.gmail.maksimus40a.test.stand.security.domain.User;
 import com.gmail.maksimus40a.test.stand.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,20 +15,21 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static com.gmail.maksimus40a.test.stand.security.service.HardcodeUserCredentials.*;
+import static com.gmail.maksimus40a.test.stand.security.service.HardcodeUserCredentials.HARDCODE_USER_NAME;
+import static com.gmail.maksimus40a.test.stand.security.service.HardcodeUserCredentials.HARDCODE_USER_PASSWORD;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
 
-    private BookRepository bookRepository;
+    private BaseRepository<Book> bookRepository;
     private UserRepository userRepository;
-    private EmployeeRepository employeeRepository;
+    private BaseRepository<Employee> employeeRepository;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public DataInitializer(@Qualifier("hash-book") BookRepository bookRepository,
+    public DataInitializer(@Qualifier("book-repository") BaseRepository<Book> bookRepository,
                            @Qualifier("hash-user") UserRepository userRepository,
-                           EmployeeRepository employeeRepository,
+                           @Qualifier("employee-repository") BaseRepository<Employee> employeeRepository,
                            PasswordEncoder passwordEncoder) {
         this.bookRepository = bookRepository;
         this.userRepository = userRepository;
@@ -54,7 +54,7 @@ public class DataInitializer implements CommandLineRunner {
                 new Book("category5", "repetitiveAuthor", "title6", BigDecimal.valueOf(6)),
                 new Book("category6", "repetitiveAuthor", "title7", BigDecimal.valueOf(7)),
                 new Book("category7", "repetitiveAuthor", "title8", BigDecimal.valueOf(8))
-        ).forEach(bookRepository::addBook);
+        ).forEach(bookRepository::addEntity);
     }
 
     private void initUserData() {
@@ -100,6 +100,6 @@ public class DataInitializer implements CommandLineRunner {
                         .career("Developer")
                         .skills(Arrays.asList("JS", "Ruby"))
                         .build()
-        ).forEach(employeeRepository::addEmployee);
+        ).forEach(employeeRepository::addEntity);
     }
 }

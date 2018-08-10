@@ -1,11 +1,10 @@
 package com.gmail.maksimus40a.test.stand.employee.repositories;
 
+import com.gmail.maksimus40a.test.stand.bases.BaseRepository;
 import com.gmail.maksimus40a.test.stand.employee.domain.Employee;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.ReflectionUtils;
 
-import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -13,8 +12,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Repository
-@Qualifier("hash-employee")
-public class InMemoryEmployeeRepository implements EmployeeRepository {
+@Qualifier("employee-repository")
+public class InMemoryEmployeeRepository implements BaseRepository<Employee> {
 
     private Map<Integer, Employee> employees = new ConcurrentHashMap<>();
     private AtomicInteger nextIdGenerator = new AtomicInteger(1);
@@ -25,20 +24,20 @@ public class InMemoryEmployeeRepository implements EmployeeRepository {
     }
 
     @Override
-    public List<Employee> getAllEmployees() {
+    public List<Employee> getAllEntities() {
         return new ArrayList<>(employees.values());
     }
 
     @Override
-    public List<Employee> getEmployeesByCriteria(String criteria, long limit) {
+    public List<Employee> getEntitiesByCriteria(String criteria, long limit) {
         return employees.values()
                 .stream()
-                .filter(fieldEqualsPredicate(criteria))
+                .filter(searchPredicate(criteria))
                 .limit(limit)
                 .collect(Collectors.toList());
     }
 
-    private Predicate<Employee> fieldEqualsPredicate(String criteria) {
+    private Predicate<Employee> searchPredicate(String criteria) {
         return employee -> employee.getFirstName().equals(criteria) ||
                 employee.getLastName().equals(criteria) ||
                 employee.getEmail().equals(criteria) ||
@@ -48,14 +47,14 @@ public class InMemoryEmployeeRepository implements EmployeeRepository {
     }
 
     @Override
-    public Optional<Employee> getEmployeeById(Integer id) {
+    public Optional<Employee> getEntityById(Integer id) {
         if (id <= 0) throw new IllegalArgumentException("Id must be greater than 0. Your id = " + id);
         if (id > this.countOfEntities()) return Optional.empty();
         return Optional.ofNullable(this.employees.get(id));
     }
 
     @Override
-    public Employee addEmployee(Employee employee) {
+    public Employee addEntity(Employee employee) {
         int id = nextId();
         employee.setId(id);
         employees.put(id, employee);
@@ -63,7 +62,7 @@ public class InMemoryEmployeeRepository implements EmployeeRepository {
     }
 
     @Override
-    public Optional<Employee> editEmployeeById(Integer id, Employee employee) {
+    public Optional<Employee> editEntity(Integer id, Employee employee) {
         if (id <= 0) throw new IllegalArgumentException("Id must be greater than 0. Your id = " + id);
         if (id > this.countOfEntities()) return Optional.empty();
         Employee updated = employees.get(id);
@@ -78,11 +77,11 @@ public class InMemoryEmployeeRepository implements EmployeeRepository {
     }
 
     @Override
-    public boolean deleteEmployeeById(Integer id) {
+    public Optional<Employee> deleteEntityById(Integer id) {
         if (id < 0) throw new IllegalArgumentException("Id must be greater than 0. Your id = " + id);
-        if (id > this.countOfEntities()) return false;
+        if (id > this.countOfEntities()) return Optional.empty();
         Employee removed = employees.remove(id);
-        return Objects.nonNull(removed);
+        return Optional.ofNullable(removed);
     }
 
     private Integer nextId() {

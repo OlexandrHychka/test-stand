@@ -35,12 +35,12 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:8080/api/library/book/10
+PUT http://localhost:8080/api/library/book/9
 Content-Type: application/json
 
 {
     "category": "horror",
-    "author": "Steven Ling",
+    "author": "Steven King",
     "title": "The Talisman",
     "price": "39.99"
 }

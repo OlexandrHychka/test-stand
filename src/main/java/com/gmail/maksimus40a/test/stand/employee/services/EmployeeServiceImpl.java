@@ -1,39 +1,39 @@
 package com.gmail.maksimus40a.test.stand.employee.services;
 
+import com.gmail.maksimus40a.test.stand.bases.BaseRepository;
+import com.gmail.maksimus40a.test.stand.bases.BaseService;
 import com.gmail.maksimus40a.test.stand.book.services.NoSuchSearchCriteriaException;
 import com.gmail.maksimus40a.test.stand.employee.domain.Employee;
-import com.gmail.maksimus40a.test.stand.employee.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.lang.reflect.Field;
 import java.util.*;
-import java.util.stream.Stream;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService {
+@Qualifier("employee-service")
+public class EmployeeServiceImpl implements BaseService<Employee> {
 
     private final String LIMIT_FIELD_NOTATION = "limit";
 
-    private EmployeeRepository employeeRepository;
+    private BaseRepository<Employee> employeeRepository;
     private List<String> employeeFieldsNames = new ArrayList<>(
             Arrays.asList("firstName", "lastName", "email", "career", "skills")
     );
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(BaseRepository<Employee> employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
     @Override
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.getAllEmployees();
+    public List<Employee> getAllEntities() {
+        return employeeRepository.getAllEntities();
     }
 
     @Override
-    public List<Employee> getEmployeesByCriteria(Map<String, String> requestParams) {
-        return employeeRepository.getEmployeesByCriteria(getValue(requestParams), getLimit(requestParams));
+    public List<Employee> getEntitiesByCriteria(Map<String, String> requestParams) {
+        return employeeRepository.getEntitiesByCriteria(getValue(requestParams), getLimit(requestParams));
     }
 
     private String getValue(Map<String, String> requestParams) {
@@ -50,22 +50,23 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Optional<Employee> getEmployeeById(Integer id) {
-        return employeeRepository.getEmployeeById(id);
+    public Optional<Employee> getEntityById(Integer id) {
+        return employeeRepository.getEntityById(id);
     }
 
     @Override
-    public Employee addEmployee(Employee employee) {
-        return employeeRepository.addEmployee(employee);
+    public Employee addEntity(Employee employee) {
+        return employeeRepository.addEntity(employee);
+    }
+
+
+    @Override
+    public Optional<Employee> editEntityById(Integer id, Employee entity) {
+        return employeeRepository.editEntity(id, entity);
     }
 
     @Override
-    public Optional<Employee> editEmployeeById(Integer id, Employee employee) {
-        return employeeRepository.editEmployeeById(id, employee);
-    }
-
-    @Override
-    public boolean deleteEmployeeById(Integer id) {
-        return employeeRepository.deleteEmployeeById(id);
+    public Optional<Employee> deleteEntityById(Integer id) {
+        return employeeRepository.deleteEntityById(id);
     }
 }

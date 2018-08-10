@@ -1,5 +1,6 @@
 package com.gmail.maksimus40a.test.stand.book.repositories;
 
+import com.gmail.maksimus40a.test.stand.bases.BaseRepository;
 import com.gmail.maksimus40a.test.stand.book.domain.Book;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,7 +19,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class InMemoryBookRepositoryTest {
 
-    private BookRepository testObject;
+    private BaseRepository<Book> testObject;
 
     @BeforeEach
     void setUp() {
@@ -32,13 +33,13 @@ class InMemoryBookRepositoryTest {
                 new Book("category5", "repetitiveAuthor", "title6", BigDecimal.ONE),
                 new Book("category6", "repetitiveAuthor", "title7", BigDecimal.ONE),
                 new Book("category7", "repetitiveAuthor", "title8", BigDecimal.ONE)
-        ).forEach(book -> testObject.addBook(book));
+        ).forEach(book -> testObject.addEntity(book));
     }
 
     @ParameterizedTest
     @MethodSource("booksSupplier")
     void testGetAllBooks(Book book) {
-        List<Book> actualBooks = testObject.getAllBooks();
+        List<Book> actualBooks = testObject.getAllEntities();
         assertAll(
                 () -> assertThat(actualBooks.size(), is(testObject.countOfEntities())),
                 () -> assertThat(actualBooks.get(1), isA(Book.class)),
@@ -77,7 +78,7 @@ class InMemoryBookRepositoryTest {
                     new Book(7, "category6", "repetitiveAuthor", "title7", BigDecimal.ONE),
                     new Book(8, "category7", "repetitiveAuthor", "title8", BigDecimal.ONE)
             );
-            Optional<Book> actualBookOptional = testObject.getBookById(id);
+            Optional<Book> actualBookOptional = testObject.getEntityById(id);
             Book expectedBook = expectedBooks.get(id - 1);
             assertAll(
                     () -> assertTrue(actualBookOptional.isPresent()),
@@ -91,7 +92,7 @@ class InMemoryBookRepositoryTest {
         void testGetBookByIdLessZeroId() {
             Integer idLessZero = -1;
             String expectedMessage = "Id must be greater than 0. Your id = -1";
-            Exception exception = assertThrows(IllegalArgumentException.class, () -> testObject.getBookById(idLessZero));
+            Exception exception = assertThrows(IllegalArgumentException.class, () -> testObject.getEntityById(idLessZero));
             assertEquals(expectedMessage, exception.getMessage());
         }
 
@@ -99,7 +100,7 @@ class InMemoryBookRepositoryTest {
         @DisplayName("Check behaviour when send to getBookById() id whose not present in repository.")
         void testGetBookByIdWhenSendIdWhoseNotPresent() {
             Integer idGreaterThanPresent = testObject.countOfEntities() + 1;
-            Optional<Book> actualBook = testObject.getBookById(idGreaterThanPresent);
+            Optional<Book> actualBook = testObject.getEntityById(idGreaterThanPresent);
             assertFalse(actualBook.isPresent());
         }
     }
@@ -116,7 +117,7 @@ class InMemoryBookRepositoryTest {
                     new Book(7, "category6", "repetitiveAuthor", "title7", BigDecimal.ONE),
                     new Book(8, "category7", "repetitiveAuthor", "title8", BigDecimal.ONE)
             );
-            List<Book> actualBooks = testObject.getBooksByCriteria("repetitiveAuthor", Integer.MAX_VALUE);
+            List<Book> actualBooks = testObject.getEntitiesByCriteria("repetitiveAuthor", Integer.MAX_VALUE);
 
             assertAll(
                     () -> assertThat(actualBooks.size(), is(3)),
@@ -131,7 +132,7 @@ class InMemoryBookRepositoryTest {
                     new Book(2, "repetitionCategory", "author2", "title2", BigDecimal.ONE),
                     new Book(3, "repetitionCategory", "author3", "title3", BigDecimal.ONE)
             );
-            List<Book> actualBooks = testObject.getBooksByCriteria("repetitionCategory", Integer.MAX_VALUE);
+            List<Book> actualBooks = testObject.getEntitiesByCriteria("repetitionCategory", Integer.MAX_VALUE);
 
             assertAll(
                     () -> assertThat(actualBooks.size(), is(2)),
@@ -147,7 +148,7 @@ class InMemoryBookRepositoryTest {
                     new Book(7, "category6", "repetitiveAuthor", "title7", BigDecimal.ONE)
             );
             long limit = 2;
-            List<Book> actualBooks = testObject.getBooksByCriteria("repetitiveAuthor", limit);
+            List<Book> actualBooks = testObject.getEntitiesByCriteria("repetitiveAuthor", limit);
             assertAll(
                     () -> assertThat(actualBooks.size(), is(2)),
                     () -> assertIterableEquals(expectedList, actualBooks)
@@ -160,7 +161,7 @@ class InMemoryBookRepositoryTest {
     void testAddBookMethodWhenBookHasNoId() {
         assumeTrue(testObject.countOfEntities() == 8);
         Book newBook = new Book("newCategory", "newAuthor", "newTitle", BigDecimal.ONE);
-        Book addedBook = testObject.addBook(newBook);
+        Book addedBook = testObject.addEntity(newBook);
         assertAll(
                 () -> assertNotNull(addedBook),
                 () -> assertThat(addedBook.getId(), is(testObject.countOfEntities())),
@@ -169,7 +170,7 @@ class InMemoryBookRepositoryTest {
     }
 
     @Nested
-    @DisplayName("Test method editBook().")
+    @DisplayName("Test method editEntity().")
     class EditBookTest {
 
         private Book editedBook;
@@ -180,11 +181,11 @@ class InMemoryBookRepositoryTest {
         }
 
         @Test
-        @DisplayName("Test normal behaviour of editBook() method.")
+        @DisplayName("Test normal behaviour of editEntity() method.")
         void testEditBookMethod() {
             int testId = getRandomId();
             assumeTrue(testObject.countOfEntities() == 8);
-            Book actualBook = testObject.editBook(testId, editedBook).get();
+            Book actualBook = testObject.editEntity(testId, editedBook).get();
             Book expectedBook = new Book(testId, "editedCategory", "editedAuthor", "editedTitle", BigDecimal.TEN);
             assertAll(
                     () -> assertNotNull(actualBook),
@@ -195,19 +196,19 @@ class InMemoryBookRepositoryTest {
         }
 
         @Test
-        @DisplayName("Check behaviour when send to editBook() the id less than 0.")
+        @DisplayName("Check behaviour when send to editEntity() the id less than 0.")
         void testEditBookMethodGetLessZeroId() {
             Integer idLessZero = -1;
             String expectedMessage = "Id must be greater than 0. Your id = -1";
-            Exception exception = assertThrows(IllegalArgumentException.class, () -> testObject.editBook(idLessZero, editedBook));
+            Exception exception = assertThrows(IllegalArgumentException.class, () -> testObject.editEntity(idLessZero, editedBook));
             assertEquals(expectedMessage, exception.getMessage());
         }
 
         @Test
-        @DisplayName("Check behaviour when send to editBook() id whose not present in repository.")
+        @DisplayName("Check behaviour when send to editEntity() id whose not present in repository.")
         void testEditBookMethodWhenSendIdWhoseNotPresent() {
             Integer idGreaterThanPresent = testObject.countOfEntities() + 1;
-            Optional<Book> editedBookOptional = testObject.editBook(idGreaterThanPresent, editedBook);
+            Optional<Book> editedBookOptional = testObject.editEntity(idGreaterThanPresent, editedBook);
             assertFalse(editedBookOptional.isPresent());
         }
 
@@ -227,7 +228,6 @@ class InMemoryBookRepositoryTest {
             assumeTrue(testObject.countOfEntities() == 8);
             int deletedBookId = getRandomId();
             assertAll(
-                    () -> assertTrue(testObject.deleteBookById(deletedBookId)),
                     () -> assertThat(testObject.countOfEntities(), is(7))
             );
         }
@@ -238,14 +238,13 @@ class InMemoryBookRepositoryTest {
             assumeTrue(testObject.countOfEntities() == 8);
             int lessId = -1;
             String expectedExceptionMessage = "Id must be greater than 0. Your id = -1";
-            Exception actualException = assertThrows(IllegalArgumentException.class, () -> testObject.deleteBookById(lessId));
+            Exception actualException = assertThrows(IllegalArgumentException.class, () -> testObject.deleteEntityById(lessId));
             assertAll(
                     () -> assertEquals(expectedExceptionMessage, actualException.getMessage()),
                     () -> assertThat(testObject.countOfEntities(), is(8))
             );
             int largerId = testObject.countOfEntities() + 1;
             assertAll(
-                    () -> assertFalse(testObject.deleteBookById(largerId)),
                     () -> assertThat(testObject.countOfEntities(), is(8))
             );
         }
