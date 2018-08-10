@@ -41,14 +41,7 @@ public class BookServiceImpl implements BookService {
     }
 
     private int getLimit(Map<String, String> requestParams) {
-        int limit;
-        if (requestParams.containsKey(LIMIT_FIELD_NOTATION)) {
-            limit = Integer.parseInt(requestParams.get(LIMIT_FIELD_NOTATION));
-            requestParams.remove(LIMIT_FIELD_NOTATION);
-        } else {
-            limit = Integer.MAX_VALUE;
-        }
-        return limit;
+        return Integer.parseInt(requestParams.getOrDefault(LIMIT_FIELD_NOTATION, String.valueOf(Integer.MAX_VALUE)));
     }
 
     @Override
