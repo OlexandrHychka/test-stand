@@ -1,7 +1,7 @@
 package com.gmail.maksimus40a.test.stand.book.services;
 
-import com.gmail.maksimus40a.test.stand.bases.BaseRepository;
 import com.gmail.maksimus40a.test.stand.bases.BaseService;
+import com.gmail.maksimus40a.test.stand.bases.SearchRepository;
 import com.gmail.maksimus40a.test.stand.book.domain.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,11 +15,11 @@ public class BookServiceImpl implements BaseService<Book> {
 
     private final String LIMIT_FIELD_NOTATION = "limit";
 
-    private BaseRepository<Book> bookRepository;
+    private SearchRepository<Book> bookRepository;
     private List<String> bookFieldsNames = new ArrayList<>(Arrays.asList("category", "author", "title", "price"));
 
     @Autowired
-    public BookServiceImpl(@Qualifier("book-repository") BaseRepository<Book> bookRepository) {
+    public BookServiceImpl(@Qualifier("book-repository") SearchRepository<Book> bookRepository) {
         this.bookRepository = bookRepository;
     }
 
@@ -30,10 +30,10 @@ public class BookServiceImpl implements BaseService<Book> {
 
     @Override
     public List<Book> getEntitiesByCriteria(Map<String, String> requestParams) {
-        return bookRepository.getEntitiesByCriteria(getValue(requestParams), getLimit(requestParams));
+        return bookRepository.getEntitiesByCriteria(getSearchCriteria(requestParams), getLimit(requestParams));
     }
 
-    private String getValue(Map<String, String> requestParams) {
+    private String getSearchCriteria(Map<String, String> requestParams) {
         return requestParams.get(bookFieldsNames.stream()
                 .filter(fieldName -> requestParams.keySet()
                         .stream()

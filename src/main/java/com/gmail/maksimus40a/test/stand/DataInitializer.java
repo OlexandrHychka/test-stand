@@ -28,7 +28,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Autowired
     public DataInitializer(@Qualifier("book-repository") BaseRepository<Book> bookRepository,
-                           @Qualifier("hash-user") UserRepository userRepository,
+                           @Qualifier("user-repository") UserRepository userRepository,
                            @Qualifier("employee-repository") BaseRepository<Employee> employeeRepository,
                            PasswordEncoder passwordEncoder) {
         this.bookRepository = bookRepository;

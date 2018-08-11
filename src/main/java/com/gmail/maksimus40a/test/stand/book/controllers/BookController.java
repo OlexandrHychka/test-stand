@@ -30,7 +30,8 @@ public class BookController {
 
     @GetMapping("/{id}")
     public Book getBookById(@PathVariable Integer id) {
-        return bookService.getEntityById(id).orElseThrow(NoSuchElementException::new);
+        return bookService.getEntityById(id)
+                .orElseThrow(() -> new NoSuchElementException("There isn't employee with such id " + id));
     }
 
     @PostMapping
@@ -42,7 +43,8 @@ public class BookController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void editBookById(@PathVariable Integer id, @RequestBody Book book) {
-        bookService.editEntityById(id, book).orElseThrow(NoSuchElementException::new);
+        bookService.editEntityById(id, book)
+                .orElseThrow(() -> new NoSuchElementException("There isn't employee with such id " + id));
     }
 
     @DeleteMapping("/{id}")

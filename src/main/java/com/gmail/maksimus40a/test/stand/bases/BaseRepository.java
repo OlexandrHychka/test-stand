@@ -11,8 +11,6 @@ public interface BaseRepository<T> {
 
     Optional<T> getEntityById(Integer id);
 
-    List<T> getEntitiesByCriteria(String criteria, long limit);
-
     T addEntity(T book);
 
     Optional<T> editEntity(Integer id, T editedEntity);

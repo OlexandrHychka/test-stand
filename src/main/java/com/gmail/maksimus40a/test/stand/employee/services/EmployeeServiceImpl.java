@@ -1,7 +1,7 @@
 package com.gmail.maksimus40a.test.stand.employee.services;
 
-import com.gmail.maksimus40a.test.stand.bases.BaseRepository;
 import com.gmail.maksimus40a.test.stand.bases.BaseService;
+import com.gmail.maksimus40a.test.stand.bases.SearchRepository;
 import com.gmail.maksimus40a.test.stand.book.services.NoSuchSearchCriteriaException;
 import com.gmail.maksimus40a.test.stand.employee.domain.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +16,13 @@ public class EmployeeServiceImpl implements BaseService<Employee> {
 
     private final String LIMIT_FIELD_NOTATION = "limit";
 
-    private BaseRepository<Employee> employeeRepository;
+    private SearchRepository<Employee> employeeRepository;
     private List<String> employeeFieldsNames = new ArrayList<>(
             Arrays.asList("firstName", "lastName", "email", "career", "skills")
     );
 
     @Autowired
-    public EmployeeServiceImpl(BaseRepository<Employee> employeeRepository) {
+    public EmployeeServiceImpl(SearchRepository<Employee> employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
@@ -33,10 +33,10 @@ public class EmployeeServiceImpl implements BaseService<Employee> {
 
     @Override
     public List<Employee> getEntitiesByCriteria(Map<String, String> requestParams) {
-        return employeeRepository.getEntitiesByCriteria(getValue(requestParams), getLimit(requestParams));
+        return employeeRepository.getEntitiesByCriteria(getSearchCriteria(requestParams), getLimit(requestParams));
     }
 
-    private String getValue(Map<String, String> requestParams) {
+    private String getSearchCriteria(Map<String, String> requestParams) {
         return requestParams.get(employeeFieldsNames.stream()
                 .filter(fieldName -> requestParams.keySet()
                         .stream()

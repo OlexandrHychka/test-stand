@@ -1,6 +1,6 @@
 package com.gmail.maksimus40a.test.stand.book.repositories;
 
-import com.gmail.maksimus40a.test.stand.bases.BaseRepository;
+import com.gmail.maksimus40a.test.stand.bases.SearchRepository;
 import com.gmail.maksimus40a.test.stand.book.domain.Book;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -8,22 +8,35 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.isA;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class InMemoryBookRepositoryTest {
 
-    private BaseRepository<Book> testObject;
+    private SearchRepository<Book> testObject;
 
     @BeforeEach
     void setUp() {
-        testObject = new InMemoryBookRepository();
+        testObject = new InMemoryBookRepository(
+                criteria -> book -> {
+                    long price;
+                    try {
+                        price = Long.parseLong(criteria);
+                    } catch (NumberFormatException e) {
+                        return book.getAuthor().equals(criteria) ||
+                                book.getCategory().equals(criteria) ||
+                                book.getTitle().equals(criteria);
+                    }
+                    return book.getPrice().compareTo(BigDecimal.valueOf(price)) == 0;
+                }
+        );
         Arrays.asList(
                 new Book("category1", "author1", "title1", BigDecimal.ONE),
                 new Book("repetitionCategory", "author2", "title2", BigDecimal.ONE),
