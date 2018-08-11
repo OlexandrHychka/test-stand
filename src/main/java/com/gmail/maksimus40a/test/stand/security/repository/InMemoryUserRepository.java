@@ -9,8 +9,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
-@Qualifier("hash-user")
-public class HashMapUserRepository implements UserRepository {
+@Qualifier("user-repository")
+public class InMemoryUserRepository implements UserRepository {
 
     private Map<Integer, User> users = new ConcurrentHashMap<>();
     private AtomicInteger nextIdGenerator = new AtomicInteger(1);

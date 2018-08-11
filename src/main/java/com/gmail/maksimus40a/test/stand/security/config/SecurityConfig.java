@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public SecurityConfig(JwtTokenProvider tokenProvider,
-                          @Qualifier("custom") UserDetailsService userDetailsService) {
+                          @Qualifier("custom-details-service") UserDetailsService userDetailsService) {
         this.tokenProvider = tokenProvider;
         this.userDetailsService = userDetailsService;
     }

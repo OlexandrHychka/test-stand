@@ -9,13 +9,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 @Component
-@Qualifier("custom")
+@Qualifier("custom-details-service")
 public class CustomUserDetailsService implements UserDetailsService {
 
     private UserRepository userRepository;
 
     @Autowired
-    public CustomUserDetailsService(@Qualifier("hash-user") UserRepository userRepository) {
+    public CustomUserDetailsService(@Qualifier("user-repository") UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

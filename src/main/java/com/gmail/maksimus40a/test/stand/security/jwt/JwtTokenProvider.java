@@ -29,7 +29,7 @@ public class JwtTokenProvider {
     private UserDetailsService userDetailsService;
 
     @Autowired
-    public JwtTokenProvider(@Qualifier("custom") UserDetailsService userDetailsService) {
+    public JwtTokenProvider(@Qualifier("custom-details-service") UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -53,16 +53,16 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public Authentication getAuthentication(String token) {
+    Authentication getAuthentication(String token) {
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUserName(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    public String getUserName(String token) {
+    private String getUserName(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public String resolveToken(HttpServletRequest req) {
+    String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
         if (Objects.nonNull(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7, bearerToken.length());
@@ -70,7 +70,7 @@ public class JwtTokenProvider {
         return null;
     }
 
-    public boolean validateToken(String token) {
+    boolean validateToken(String token) {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return !claims.getBody().getExpiration().before(new Date());
