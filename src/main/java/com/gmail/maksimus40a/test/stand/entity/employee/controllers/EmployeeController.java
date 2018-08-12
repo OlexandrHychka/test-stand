@@ -30,7 +30,7 @@ public class EmployeeController {
     @GetMapping("/{id}")
     public Employee getEmployeeById(@PathVariable Integer id) {
         return employeeService.getEntityById(id)
-                .orElseThrow(() -> new NoSuchElementException("There isn't employee with such id " + id));
+                .orElseThrow(() -> new NoSuchElementException("There isn't resource with such id : " + id));
     }
 
     @PostMapping
@@ -43,7 +43,7 @@ public class EmployeeController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void editEmployeeById(@PathVariable Integer id, @RequestBody Employee employee) {
         employeeService.editEntityById(id, employee)
-                .orElseThrow(() -> new NoSuchElementException("There isn't employee with such id " + id));
+                .orElseThrow(() -> new NoSuchElementException("There isn't resource with such id : " + id));
     }
 
     @DeleteMapping("/{id}")

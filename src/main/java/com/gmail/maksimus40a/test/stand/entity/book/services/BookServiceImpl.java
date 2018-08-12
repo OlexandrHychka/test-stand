@@ -41,7 +41,7 @@ public class BookServiceImpl implements BaseService<Book> {
                         .stream()
                         .anyMatch(field -> field.equals(fieldName)))
                 .findFirst()
-                .orElseThrow(() -> new NoSuchSearchCriteriaException("Not such search criteria.")));
+                .orElseThrow(() -> new NoSuchSearchCriteriaException("There is no entity by the required criterion.")));
     }
 
     private int getLimit(Map<String, String> requestParams) {

@@ -31,7 +31,7 @@ public class BookController {
     @GetMapping("/{id}")
     public Book getBookById(@PathVariable Integer id) {
         return bookService.getEntityById(id)
-                .orElseThrow(() -> new NoSuchElementException("There isn't employee with such id " + id));
+                .orElseThrow(() -> new NoSuchElementException("There isn't resource with such id " + id));
     }
 
     @PostMapping
@@ -44,7 +44,7 @@ public class BookController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void editBookById(@PathVariable Integer id, @RequestBody Book book) {
         bookService.editEntityById(id, book)
-                .orElseThrow(() -> new NoSuchElementException("There isn't employee with such id " + id));
+                .orElseThrow(() -> new NoSuchElementException("There isn't resource with such id " + id));
     }
 
     @DeleteMapping("/{id}")
