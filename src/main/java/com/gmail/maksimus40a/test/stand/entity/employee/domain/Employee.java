@@ -1,4 +1,4 @@
-package com.gmail.maksimus40a.test.stand.employee.domain;
+package com.gmail.maksimus40a.test.stand.entity.employee.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

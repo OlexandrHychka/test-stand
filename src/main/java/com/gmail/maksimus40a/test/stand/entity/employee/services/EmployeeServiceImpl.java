@@ -1,9 +1,9 @@
-package com.gmail.maksimus40a.test.stand.employee.services;
+package com.gmail.maksimus40a.test.stand.entity.employee.services;
 
-import com.gmail.maksimus40a.test.stand.bases.BaseService;
-import com.gmail.maksimus40a.test.stand.bases.SearchRepository;
-import com.gmail.maksimus40a.test.stand.book.services.NoSuchSearchCriteriaException;
-import com.gmail.maksimus40a.test.stand.employee.domain.Employee;
+import com.gmail.maksimus40a.test.stand.entity.base.BaseService;
+import com.gmail.maksimus40a.test.stand.entity.base.SearchRepository;
+import com.gmail.maksimus40a.test.stand.entity.book.services.NoSuchSearchCriteriaException;
+import com.gmail.maksimus40a.test.stand.entity.employee.domain.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

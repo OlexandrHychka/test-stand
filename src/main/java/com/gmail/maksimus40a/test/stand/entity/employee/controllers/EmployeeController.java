@@ -1,7 +1,7 @@
-package com.gmail.maksimus40a.test.stand.employee.controllers;
+package com.gmail.maksimus40a.test.stand.entity.employee.controllers;
 
-import com.gmail.maksimus40a.test.stand.bases.BaseService;
-import com.gmail.maksimus40a.test.stand.employee.domain.Employee;
+import com.gmail.maksimus40a.test.stand.entity.base.BaseService;
+import com.gmail.maksimus40a.test.stand.entity.employee.domain.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;

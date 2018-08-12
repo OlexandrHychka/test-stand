@@ -1,7 +1,7 @@
-package com.gmail.maksimus40a.test.stand.book.repositories;
+package com.gmail.maksimus40a.test.stand.entity.book.repositories;
 
-import com.gmail.maksimus40a.test.stand.bases.SearchRepository;
-import com.gmail.maksimus40a.test.stand.book.domain.Book;
+import com.gmail.maksimus40a.test.stand.entity.base.SearchRepository;
+import com.gmail.maksimus40a.test.stand.entity.book.domain.Book;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;

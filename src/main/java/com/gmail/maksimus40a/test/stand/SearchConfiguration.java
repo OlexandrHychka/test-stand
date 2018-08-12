@@ -1,7 +1,7 @@
 package com.gmail.maksimus40a.test.stand;
 
-import com.gmail.maksimus40a.test.stand.book.domain.Book;
-import com.gmail.maksimus40a.test.stand.employee.domain.Employee;
+import com.gmail.maksimus40a.test.stand.entity.book.domain.Book;
+import com.gmail.maksimus40a.test.stand.entity.employee.domain.Employee;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

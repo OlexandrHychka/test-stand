@@ -1,7 +1,7 @@
-package com.gmail.maksimus40a.test.stand.employee.repositories;
+package com.gmail.maksimus40a.test.stand.entity.employee.repositories;
 
-import com.gmail.maksimus40a.test.stand.bases.SearchRepository;
-import com.gmail.maksimus40a.test.stand.employee.domain.Employee;
+import com.gmail.maksimus40a.test.stand.entity.base.SearchRepository;
+import com.gmail.maksimus40a.test.stand.entity.employee.domain.Employee;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 

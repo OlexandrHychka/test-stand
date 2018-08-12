@@ -1,8 +1,8 @@
 package com.gmail.maksimus40a.test.stand;
 
-import com.gmail.maksimus40a.test.stand.bases.BaseRepository;
-import com.gmail.maksimus40a.test.stand.book.domain.Book;
-import com.gmail.maksimus40a.test.stand.employee.domain.Employee;
+import com.gmail.maksimus40a.test.stand.entity.base.BaseRepository;
+import com.gmail.maksimus40a.test.stand.entity.book.domain.Book;
+import com.gmail.maksimus40a.test.stand.entity.employee.domain.Employee;
 import com.gmail.maksimus40a.test.stand.security.domain.User;
 import com.gmail.maksimus40a.test.stand.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

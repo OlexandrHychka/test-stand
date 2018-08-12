@@ -1,8 +1,8 @@
-package com.gmail.maksimus40a.test.stand.book.services;
+package com.gmail.maksimus40a.test.stand.entity.book.services;
 
-import com.gmail.maksimus40a.test.stand.bases.BaseService;
-import com.gmail.maksimus40a.test.stand.bases.SearchRepository;
-import com.gmail.maksimus40a.test.stand.book.domain.Book;
+import com.gmail.maksimus40a.test.stand.entity.base.BaseService;
+import com.gmail.maksimus40a.test.stand.entity.base.SearchRepository;
+import com.gmail.maksimus40a.test.stand.entity.book.domain.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
