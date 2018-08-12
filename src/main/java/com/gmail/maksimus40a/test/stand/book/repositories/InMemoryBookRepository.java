@@ -65,7 +65,6 @@ public class InMemoryBookRepository extends SearchRepository<Book> {
         if (id < 0) throw new IllegalArgumentException("Id must be greater than 0. Your id = " + id);
         if (id > this.countOfEntities()) Optional.empty();
         Book removed = entityMap.remove(id);
-        reduceId();
         return Optional.ofNullable(removed);
     }
 }

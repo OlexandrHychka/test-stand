@@ -13,14 +13,16 @@ import java.util.*;
 @Qualifier("book-service")
 public class BookServiceImpl implements BaseService<Book> {
 
-    private final String LIMIT_FIELD_NOTATION = "limit";
+    private final String LIMIT = "limit";
 
     private SearchRepository<Book> bookRepository;
-    private List<String> bookFieldsNames = new ArrayList<>(Arrays.asList("category", "author", "title", "price"));
+    private List<String> entityFields;
 
     @Autowired
-    public BookServiceImpl(@Qualifier("book-repository") SearchRepository<Book> bookRepository) {
+    public BookServiceImpl(@Qualifier("book-repository") SearchRepository<Book> bookRepository,
+                           @Qualifier("book-fields") List<String> entityFields) {
         this.bookRepository = bookRepository;
+        this.entityFields = entityFields;
     }
 
     @Override
@@ -34,7 +36,7 @@ public class BookServiceImpl implements BaseService<Book> {
     }
 
     private String getSearchCriteria(Map<String, String> requestParams) {
-        return requestParams.get(bookFieldsNames.stream()
+        return requestParams.get(entityFields.stream()
                 .filter(fieldName -> requestParams.keySet()
                         .stream()
                         .anyMatch(field -> field.equals(fieldName)))
@@ -43,7 +45,7 @@ public class BookServiceImpl implements BaseService<Book> {
     }
 
     private int getLimit(Map<String, String> requestParams) {
-        return Integer.parseInt(requestParams.getOrDefault(LIMIT_FIELD_NOTATION, String.valueOf(Integer.MAX_VALUE)));
+        return Integer.parseInt(requestParams.getOrDefault(LIMIT, String.valueOf(Integer.MAX_VALUE)));
     }
 
     @Override

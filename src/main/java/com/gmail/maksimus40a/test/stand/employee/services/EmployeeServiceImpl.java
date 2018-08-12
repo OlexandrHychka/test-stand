@@ -14,16 +14,16 @@ import java.util.*;
 @Qualifier("employee-service")
 public class EmployeeServiceImpl implements BaseService<Employee> {
 
-    private final String LIMIT_FIELD_NOTATION = "limit";
+    private final String LIMIT = "limit";
 
     private SearchRepository<Employee> employeeRepository;
-    private List<String> employeeFieldsNames = new ArrayList<>(
-            Arrays.asList("firstName", "lastName", "email", "career", "skills")
-    );
+    private List<String> fieldsOfEntity;
 
     @Autowired
-    public EmployeeServiceImpl(SearchRepository<Employee> employeeRepository) {
+    public EmployeeServiceImpl(SearchRepository<Employee> employeeRepository,
+                               @Qualifier("employee-fields") List<String> fieldsOfEntity) {
         this.employeeRepository = employeeRepository;
+        this.fieldsOfEntity = fieldsOfEntity;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class EmployeeServiceImpl implements BaseService<Employee> {
     }
 
     private String getSearchCriteria(Map<String, String> requestParams) {
-        return requestParams.get(employeeFieldsNames.stream()
+        return requestParams.get(fieldsOfEntity.stream()
                 .filter(fieldName -> requestParams.keySet()
                         .stream()
                         .anyMatch(field -> field.equals(fieldName)))
@@ -46,7 +46,7 @@ public class EmployeeServiceImpl implements BaseService<Employee> {
     }
 
     private int getLimit(Map<String, String> requestParams) {
-        return Integer.parseInt(requestParams.getOrDefault(LIMIT_FIELD_NOTATION, String.valueOf(Integer.MAX_VALUE)));
+        return Integer.parseInt(requestParams.getOrDefault(LIMIT, String.valueOf(Integer.MAX_VALUE)));
     }
 
     @Override

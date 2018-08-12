@@ -30,8 +30,4 @@ public abstract class SearchRepository<T> implements BaseRepository<T> {
     protected Integer nextId() {
         return nextIdGenerator.getAndIncrement();
     }
-
-    protected void reduceId() {
-        nextIdGenerator.decrementAndGet();
-    }
 }
