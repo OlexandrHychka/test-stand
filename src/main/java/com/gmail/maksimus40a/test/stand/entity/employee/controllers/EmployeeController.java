@@ -5,7 +5,9 @@ import com.gmail.maksimus40a.test.stand.entity.employee.domain.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Map;
@@ -23,32 +25,39 @@ public class EmployeeController {
     }
 
     @GetMapping("/list")
-    public List<Employee> getAllEmployees(@RequestParam(required = false) Map<String, String> requestParams) {
-        return (requestParams.isEmpty()) ? employeeService.getAllEntities() : employeeService.getEntitiesByCriteria(requestParams);
+    public ResponseEntity<List<Employee>> getAllEmployees(@RequestParam(required = false) Map<String, String> requestParams) {
+        return (requestParams.isEmpty()) ?
+                new ResponseEntity<>(employeeService.getAllEntities(), HttpStatus.FOUND) :
+                new ResponseEntity<>(employeeService.getEntitiesByCriteria(requestParams), HttpStatus.FOUND);
     }
 
     @GetMapping("/{id}")
-    public Employee getEmployeeById(@PathVariable Integer id) {
-        return employeeService.getEntityById(id)
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable Integer id) {
+        Employee employee = employeeService
+                .getEntityById(id)
                 .orElseThrow(() -> new NoSuchElementException("There isn't resource with such id : " + id));
+        return new ResponseEntity<>(employee, HttpStatus.FOUND);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Employee createEmployee(@RequestBody Employee employee) {
-        return employeeService.addEntity(employee);
+    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee, UriComponentsBuilder ucb) {
+        Employee createdEmployee = employeeService.addEntity(employee);
+        return ResponseEntity.
+                created(ucb.path("/api/itcompany/{id}").buildAndExpand(createdEmployee.getId()).toUri())
+                .body(createdEmployee);
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void editEmployeeById(@PathVariable Integer id, @RequestBody Employee employee) {
-        employeeService.editEntityById(id, employee)
+    public ResponseEntity<Employee> editEmployeeById(@PathVariable Integer id, @RequestBody Employee employee) {
+        Employee editedEmployee = employeeService
+                .editEntityById(id, employee)
                 .orElseThrow(() -> new NoSuchElementException("There isn't resource with such id : " + id));
+        return ResponseEntity.ok(editedEmployee);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteEmployeeById(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteEmployeeById(@PathVariable Integer id) {
         employeeService.deleteEntityById(id);
+        return ResponseEntity.ok().build();
     }
 }

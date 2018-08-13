@@ -5,7 +5,9 @@ import com.gmail.maksimus40a.test.stand.entity.book.domain.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Map;
@@ -23,33 +25,39 @@ public class BookController {
     }
 
     @GetMapping("/list")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Book> getAllBooks(@RequestParam(required = false) Map<String, String> parametersOfQuery) {
-        return (parametersOfQuery.isEmpty()) ? bookService.getAllEntities() : bookService.getEntitiesByCriteria(parametersOfQuery);
+    public ResponseEntity<List<Book>> getAllBooks(@RequestParam(required = false) Map<String, String> parametersOfQuery) {
+        return (parametersOfQuery.isEmpty()) ?
+                new ResponseEntity<>(bookService.getAllEntities(), HttpStatus.FOUND) :
+                new ResponseEntity<>(bookService.getEntitiesByCriteria(parametersOfQuery), HttpStatus.FOUND);
     }
 
     @GetMapping("/{id}")
-    public Book getBookById(@PathVariable Integer id) {
-        return bookService.getEntityById(id)
+    public ResponseEntity<Book> getBookById(@PathVariable Integer id) {
+        Book book = bookService
+                .getEntityById(id)
                 .orElseThrow(() -> new NoSuchElementException("There isn't resource with such id " + id));
+        return new ResponseEntity<>(book, HttpStatus.FOUND);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Book createBook(@RequestBody Book book) {
-        return bookService.addEntity(book);
+    public ResponseEntity<Book> createBook(@RequestBody Book book, UriComponentsBuilder ucb) {
+        Book createdBook = bookService.addEntity(book);
+        return ResponseEntity
+                .created(ucb.path("/api/library/book/{id}").buildAndExpand(createdBook.getId()).toUri())
+                .body(createdBook);
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void editBookById(@PathVariable Integer id, @RequestBody Book book) {
-        bookService.editEntityById(id, book)
+    public ResponseEntity<Book> editBookById(@PathVariable Integer id, @RequestBody Book book) {
+        Book editedBook = bookService
+                .editEntityById(id, book)
                 .orElseThrow(() -> new NoSuchElementException("There isn't resource with such id " + id));
+        return ResponseEntity.ok(editedBook);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBookById(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteBookById(@PathVariable Integer id) {
         bookService.deleteEntityById(id);
+        return ResponseEntity.ok().build();
     }
 }
