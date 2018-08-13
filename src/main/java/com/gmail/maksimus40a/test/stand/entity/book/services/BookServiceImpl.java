@@ -1,13 +1,15 @@
 package com.gmail.maksimus40a.test.stand.entity.book.services;
 
+import com.gmail.maksimus40a.test.stand.entity.base.BaseRepository;
 import com.gmail.maksimus40a.test.stand.entity.base.BaseService;
-import com.gmail.maksimus40a.test.stand.entity.base.SearchRepository;
 import com.gmail.maksimus40a.test.stand.entity.book.domain.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Qualifier("book-service")
@@ -15,11 +17,11 @@ public class BookServiceImpl implements BaseService<Book> {
 
     private final String LIMIT = "limit";
 
-    private SearchRepository<Book> bookRepository;
+    private BaseRepository<Book> bookRepository;
     private List<String> entityFields;
 
     @Autowired
-    public BookServiceImpl(@Qualifier("book-repository") SearchRepository<Book> bookRepository,
+    public BookServiceImpl(@Qualifier("book-repository") BaseRepository<Book> bookRepository,
                            @Qualifier("book-fields") List<String> entityFields) {
         this.bookRepository = bookRepository;
         this.entityFields = entityFields;

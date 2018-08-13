@@ -1,6 +1,6 @@
 package com.gmail.maksimus40a.test.stand.entity.book.repositories;
 
-import com.gmail.maksimus40a.test.stand.entity.base.SearchRepository;
+import com.gmail.maksimus40a.test.stand.entity.base.BaseRepository;
 import com.gmail.maksimus40a.test.stand.entity.book.domain.Book;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class InMemoryBookRepositoryTest {
 
-    private SearchRepository<Book> testObject;
+    private BaseRepository<Book> testObject;
 
     @BeforeEach
     void setUp() {
@@ -38,15 +38,15 @@ class InMemoryBookRepositoryTest {
                 }
         );
         Arrays.asList(
-                new Book("category1", "author1", "title1", BigDecimal.ONE),
-                new Book("repetitionCategory", "author2", "title2", BigDecimal.ONE),
-                new Book("repetitionCategory", "author3", "title3", BigDecimal.ONE),
-                new Book("category3", "author4", "title4", BigDecimal.ONE),
-                new Book("category4", "author5", "title5", BigDecimal.ONE),
-                new Book("category5", "repetitiveAuthor", "title6", BigDecimal.ONE),
-                new Book("category6", "repetitiveAuthor", "title7", BigDecimal.ONE),
-                new Book("category7", "repetitiveAuthor", "title8", BigDecimal.ONE)
-        ).forEach(book -> testObject.addEntity(book));
+                Book.builder().category("category1").author("author1").title("title1").price(BigDecimal.ONE).build(),
+                Book.builder().category("repetitionCategory").author("author2").title("title2").price(BigDecimal.ONE).build(),
+                Book.builder().category("repetitionCategory").author("author3").title("title3").price(BigDecimal.ONE).build(),
+                Book.builder().category("category3").author("author4").title("title4").price(BigDecimal.ONE).build(),
+                Book.builder().category("category4").author("author5").title("title5").price(BigDecimal.ONE).build(),
+                Book.builder().category("category5").author("repetitiveAuthor").title("title6").price(BigDecimal.ONE).build(),
+                Book.builder().category("category6").author("repetitiveAuthor").title("title7").price(BigDecimal.ONE).build(),
+                Book.builder().category("category7").author("repetitiveAuthor").title("title8").price(BigDecimal.ONE).build()
+        ).forEach(testObject::addEntity);
     }
 
     @ParameterizedTest
@@ -240,6 +240,7 @@ class InMemoryBookRepositoryTest {
         void testDeleteBookByIdNormalBehaviour() {
             assumeTrue(testObject.countOfEntities() == 8);
             int deletedBookId = getRandomId();
+            testObject.deleteEntityById(deletedBookId);
             assertAll(
                     () -> assertThat(testObject.countOfEntities(), is(7))
             );
@@ -257,6 +258,7 @@ class InMemoryBookRepositoryTest {
                     () -> assertThat(testObject.countOfEntities(), is(8))
             );
             int largerId = testObject.countOfEntities() + 1;
+            testObject.deleteEntityById(largerId);
             assertAll(
                     () -> assertThat(testObject.countOfEntities(), is(8))
             );

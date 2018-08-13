@@ -1,9 +1,7 @@
 package com.gmail.maksimus40a.test.stand.entity.employee.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.gmail.maksimus40a.test.stand.entity.base.IdEntity;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +10,9 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Employee {
+@EqualsAndHashCode(callSuper = true)
+@ToString
+public class Employee extends IdEntity {
 
     private Integer id;
     private String firstName;

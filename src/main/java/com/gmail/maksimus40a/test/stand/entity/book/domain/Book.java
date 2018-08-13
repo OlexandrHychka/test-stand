@@ -1,24 +1,24 @@
 package com.gmail.maksimus40a.test.stand.entity.book.domain;
 
+import com.gmail.maksimus40a.test.stand.entity.base.IdEntity;
 import lombok.*;
 
 import java.math.BigDecimal;
 
-@Setter
-@Getter
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode
+@Builder
+@EqualsAndHashCode(callSuper = false)
 @ToString
-public class Book {
+public class Book extends IdEntity {
 
-    private Integer id;
     private String category;
     private String author;
     private String title;
     private BigDecimal price;
 
-    public Book(String category, String author, String title, BigDecimal price) {
+    public Book(Integer id , String category, String author, String title, BigDecimal price) {
+        super(id);
         this.category = category;
         this.author = author;
         this.title = title;

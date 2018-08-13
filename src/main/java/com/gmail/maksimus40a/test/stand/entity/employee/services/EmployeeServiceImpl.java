@@ -1,14 +1,16 @@
 package com.gmail.maksimus40a.test.stand.entity.employee.services;
 
+import com.gmail.maksimus40a.test.stand.entity.base.BaseRepository;
 import com.gmail.maksimus40a.test.stand.entity.base.BaseService;
-import com.gmail.maksimus40a.test.stand.entity.base.SearchRepository;
 import com.gmail.maksimus40a.test.stand.entity.book.services.NoSuchSearchCriteriaException;
 import com.gmail.maksimus40a.test.stand.entity.employee.domain.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Qualifier("employee-service")
@@ -16,11 +18,11 @@ public class EmployeeServiceImpl implements BaseService<Employee> {
 
     private final String LIMIT = "limit";
 
-    private SearchRepository<Employee> employeeRepository;
+    private BaseRepository<Employee> employeeRepository;
     private List<String> fieldsOfEntity;
 
     @Autowired
-    public EmployeeServiceImpl(SearchRepository<Employee> employeeRepository,
+    public EmployeeServiceImpl(BaseRepository<Employee> employeeRepository,
                                @Qualifier("employee-fields") List<String> fieldsOfEntity) {
         this.employeeRepository = employeeRepository;
         this.fieldsOfEntity = fieldsOfEntity;

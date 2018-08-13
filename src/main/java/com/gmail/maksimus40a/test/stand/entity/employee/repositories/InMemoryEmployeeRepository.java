@@ -1,47 +1,20 @@
 package com.gmail.maksimus40a.test.stand.entity.employee.repositories;
 
-import com.gmail.maksimus40a.test.stand.entity.base.SearchRepository;
+import com.gmail.maksimus40a.test.stand.entity.base.AbstractInMemoryRepository;
 import com.gmail.maksimus40a.test.stand.entity.employee.domain.Employee;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 @Repository
 @Qualifier("employee-repository")
-public class InMemoryEmployeeRepository extends SearchRepository<Employee> {
+public class InMemoryEmployeeRepository extends AbstractInMemoryRepository<Employee> {
 
     public InMemoryEmployeeRepository(@Qualifier("employee-search") Function<String, Predicate<Employee>> searchFunction) {
         super(searchFunction);
-    }
-
-    @Override
-    public int countOfEntities() {
-        return entityMap.size();
-    }
-
-    @Override
-    public List<Employee> getAllEntities() {
-        return new ArrayList<>(entityMap.values());
-    }
-
-    @Override
-    public Optional<Employee> getEntityById(Integer id) {
-        if (id <= 0) throw new IllegalArgumentException("Id must be greater than 0. Your id = " + id);
-        if (id > this.countOfEntities()) return Optional.empty();
-        return Optional.ofNullable(entityMap.get(id));
-    }
-
-    @Override
-    public Employee addEntity(Employee employee) {
-        int id = nextId();
-        employee.setId(id);
-        entityMap.put(id, employee);
-        return employee;
     }
 
     @Override
@@ -57,13 +30,5 @@ public class InMemoryEmployeeRepository extends SearchRepository<Employee> {
         updated.setSkills(employee.getSkills());
         entityMap.put(id, updated);
         return Optional.of(updated);
-    }
-
-    @Override
-    public Optional<Employee> deleteEntityById(Integer id) {
-        if (id < 0) throw new IllegalArgumentException("Id must be greater than 0. Your id = " + id);
-        if (id > this.countOfEntities()) return Optional.empty();
-        Employee removed = entityMap.remove(id);
-        return Optional.ofNullable(removed);
     }
 }
