@@ -25,11 +25,11 @@ public class LoggingAspect {
     }
 
     @Pointcut("within(com.gmail.maksimus40a.test.stand.entity.book.controllers..*) " +
-            " || within(com.gmail.maksimus40a.test.stand.entity.book.controllers..*)")
-    public void applicationPackagePointcut() {
+            " || within(com.gmail.maksimus40a.test.stand.entity.employee.controllers..*)")
+    public void controllersPointcut() {
     }
 
-    @Around("applicationPackagePointcut()")
+    @Around("controllersPointcut()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
         if (log.isDebugEnabled()) {
             log.debug("Enter: {}.{}() with argument[s] = {}", joinPoint.getSignature().getDeclaringTypeName(),
@@ -50,7 +50,7 @@ public class LoggingAspect {
         }
     }
 
-    @AfterThrowing(pointcut = "applicationPackagePointcut() && springBeanPointcut()", throwing = "e")
+    @AfterThrowing(pointcut = "controllersPointcut() && springBeanPointcut()", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
         log.error("Exception in {}.{}() with cause = {}, args = {}",
                 joinPoint.getSignature().getDeclaringTypeName(),
