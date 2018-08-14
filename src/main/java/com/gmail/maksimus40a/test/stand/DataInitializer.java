@@ -80,7 +80,6 @@ public class DataInitializer implements CommandLineRunner {
                         .enabled(true)
                         .build()
         ));
-        userRepository.findAll().forEach(System.out::println);
     }
 
     private void initEmployeeData() {

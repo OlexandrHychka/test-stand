@@ -22,7 +22,7 @@ public class SecuredBookController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<Book>> hello() {
+    public ResponseEntity<List<Book>> getAllBooks() {
         return new ResponseEntity<>(bookService.getAllEntities(), HttpStatus.FOUND);
     }
 
