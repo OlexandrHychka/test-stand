@@ -1,6 +1,6 @@
 package com.gmail.maksimus40a.test.stand;
 
-import com.gmail.maksimus40a.test.stand.entity.book.services.NoSuchSearchCriteriaException;
+import com.gmail.maksimus40a.test.stand.features.base.exeptions.NoSuchSearchCriteriaException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

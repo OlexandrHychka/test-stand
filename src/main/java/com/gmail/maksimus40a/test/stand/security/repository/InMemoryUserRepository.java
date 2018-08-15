@@ -1,6 +1,7 @@
 package com.gmail.maksimus40a.test.stand.security.repository;
 
 import com.gmail.maksimus40a.test.stand.security.domain.User;
+import com.gmail.maksimus40a.test.stand.security.exeptions.SuchUserIsPresentException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -49,7 +50,8 @@ public class InMemoryUserRepository implements UserRepository {
 
     private void checkNotUniqueUsername(User user) {
         if (findByUserName(user.getUsername()).isPresent()) {
-            throw new SuchUserIsPresentException("User with a such username is present, please choose a new user name.");
+            String message = "User with a such username: " + user.getUsername() + " is present, please choose a new user name.";
+            throw new SuchUserIsPresentException(message);
         }
     }
 

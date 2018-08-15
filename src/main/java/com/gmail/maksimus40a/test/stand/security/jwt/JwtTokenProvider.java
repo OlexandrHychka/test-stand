@@ -1,5 +1,6 @@
 package com.gmail.maksimus40a.test.stand.security.jwt;
 
+import com.gmail.maksimus40a.test.stand.security.exeptions.InvalidJwtAuthenticationException;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

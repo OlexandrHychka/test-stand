@@ -2,7 +2,7 @@
 <Configuration monitorInterval="30">
     <Properties>
         <Property name="LOG_PATTERN">
-            %d{yyyy-MMM-dd HH:mm:ss a} %d %-5level [%thread] %logger{0}: %msg%n
+            %d{yyyy-MMM-dd HH:mm:ss} %-5level [%thread] %logger{0}: %msg%n
         </Property>
     </Properties>
 

@@ -1,8 +1,8 @@
 package com.gmail.maksimus40a.test.stand;
 
-import com.gmail.maksimus40a.test.stand.entity.base.BaseRepository;
-import com.gmail.maksimus40a.test.stand.entity.book.domain.Book;
-import com.gmail.maksimus40a.test.stand.entity.employee.domain.Employee;
+import com.gmail.maksimus40a.test.stand.features.base.interfaces.BaseRepository;
+import com.gmail.maksimus40a.test.stand.features.book.domain.Book;
+import com.gmail.maksimus40a.test.stand.features.employee.domain.Employee;
 import com.gmail.maksimus40a.test.stand.security.domain.User;
 import com.gmail.maksimus40a.test.stand.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.List;
 
 import static com.gmail.maksimus40a.test.stand.security.service.HardcodeUserCredentials.HARDCODE_USER_NAME;
 import static com.gmail.maksimus40a.test.stand.security.service.HardcodeUserCredentials.HARDCODE_USER_PASSWORD;
-import static com.gmail.maksimus40a.test.stand.util.JsonUtils.mapJsonFileToListEntities;
+import static com.gmail.maksimus40a.test.stand.utils.JsonUtils.mapJsonFileToListEntities;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
