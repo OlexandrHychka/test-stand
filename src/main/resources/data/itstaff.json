@@ -1,0 +1,101 @@
+[
+  {
+    "firstName": "Vernon",
+    "lastName": "Harper",
+    "email": "egestas.rhoncus.Proin@massaQuisqueporttitor.org",
+    "career": "QA Emgineer",
+    "skills": [
+      "Manual testing (Web)",
+      "Manual testing (Mobile)"
+    ]
+  },
+  {
+    "firstName": "Murphy",
+    "lastName": "Holmes",
+    "email": "faucibus.orci.luctus@Duisac.net",
+    "career": "Developer",
+    "skills": [
+      "JS",
+      "Ruby"
+    ]
+  },
+  {
+    "firstName": "Romin",
+    "lastName": "Irani",
+    "email": "romin.k.irani@gmail.com",
+    "career": "Developer",
+    "skills": [
+      "C#, C++"
+    ]
+  },
+  {
+    "firstName": "Tom",
+    "lastName": "Hanks",
+    "email": "tomhanks@gmail.com",
+    "career": "QA Emgineer",
+    "skills": [
+      "Performance Testing (Jmeter)",
+      "Manual testing (Web)"
+    ]
+  },
+  {
+    "firstName": "Bill",
+    "lastName": "Black",
+    "email": "2b@massaQuisqueporttitor.org",
+    "career": "QA Emgineer",
+    "skills": [
+      "Manual testing (Web)",
+      "Manual testing (Mobile)"
+    ]
+  },
+  {
+    "firstName": "Lora",
+    "lastName": "Garison",
+    "email": "garison1987@mail.org",
+    "career": "Developer",
+    "skills": [
+      "Java (Mobile)",
+      "Kotlin"
+    ]
+  },
+  {
+    "firstName": "Brian",
+    "lastName": "Smith",
+    "email": "br5sm@gmail.com",
+    "career": "Developer",
+    "skills": [
+      "Java (web)"
+    ]
+  },
+  {
+    "firstName": "Tony",
+    "lastName": "Eagle",
+    "email": "whiteEgle@gmail.com",
+    "career": "Developer",
+    "skills": [
+      "Java (Mobile)",
+      "Kotlin"
+    ]
+  },
+  {
+    "firstName": "Arthur",
+    "lastName": "Freeman",
+    "email": "blackus@mail.org",
+    "career": "QA Emgineer",
+    "skills": [
+      "Manual testing (Web)",
+      "Manual testing (Mobile)",
+      "API testing (Manual)"
+    ]
+  },
+  {
+    "id": 10,
+    "firstName": "Linda",
+    "lastName": "Armstrong",
+    "email": "linda1985@Duisac.net",
+    "career": "Developer",
+    "skills": [
+      "Java (web)"
+    ]
+  }
+]

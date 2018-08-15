@@ -3,12 +3,12 @@ POST http://localhost:8080/api/itcompany/login
 ###
 
 GET http://localhost:8080/api/itcompany/list
-Authorization: {place to token}
+Authorization: {palce to token}
 
 ###
 
 GET http://localhost:8080/api/itcompany/3
-Authorization: {place to token}
+Authorization: {palce to token}
 
 ###
 
@@ -45,12 +45,17 @@ Authorization: {place to token}
 
 ###
 
-GET http://localhost:8080/api/itcompany/list?hello=world&limit=10
-Authorization: {place to token}
+GET http://localhost:8080/api/itcompany/list?firstName=Romin
+Authorization: {palce to token}
 
 ###
 
-GET http://localhost:8080/api/itcompany/list?email=egestas.rhoncus.Proin@massaQuisqueporttitor.org
-Authorization: {place to token}
+GET http://localhost:8080/api/itcompany/list?email=romin.k.irani@gmail.com
+Authorization: {palce to token}
+
+###
+
+GET http://localhost:8080/api/itcompany/list?skills=Java (web)
+Authorization: {palce to token}
 
 ###

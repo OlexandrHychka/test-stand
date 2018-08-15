@@ -1,0 +1,62 @@
+[
+  {
+    "category": "reference",
+    "author": "Nigel Rees",
+    "title": "Sayings of the Century",
+    "price": 8.95
+  },
+  {
+    "category": "fiction",
+    "author": "Evelyn Waugh",
+    "title": "Sword of Honour",
+    "price": 12.99
+  },
+  {
+    "category": "computer & IT",
+    "author": "Axel Rauschmayer",
+    "title": "Speaking JavaScript",
+    "price": 15.00
+  },
+  {
+    "category": "computer & IT",
+    "author": "Glenn Block, et al.",
+    "title": "Designing Evolvable Web APIs with ASP.NET",
+    "price": 11.85
+  },
+  {
+    "category": "fantasy",
+    "author": "Jostein Gaarder",
+    "title": "Sophie's World : The Greek Philosophers",
+    "price": 3.07
+  },
+  {
+    "category": "fantasy",
+    "author": "Rick Riordan",
+    "title": "The Lightning Thief",
+    "price": 12.50
+  },
+  {
+    "category": "fantasy",
+    "author": "Rick Riordan",
+    "title": "The Sea of Monsters",
+    "price": 6.49
+  },
+  {
+    "category": "war drama",
+    "author": "Tolstoy, Leo",
+    "title": "War and Peace",
+    "price": 12.7
+  },
+  {
+    "category": "drama",
+    "author": "Tolstoy, Leo",
+    "title": "Anna Karenina",
+    "price": 13.5
+  },
+  {
+    "category": "modernism",
+    "author": "Woolf, Virginia",
+    "title": "Mrs. Dalloway",
+    "price": 25
+  }
+]

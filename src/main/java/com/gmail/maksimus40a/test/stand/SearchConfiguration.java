@@ -21,9 +21,9 @@ public class SearchConfiguration {
     @Qualifier("book-search")
     public Function<String, Predicate<Book>> searchFunctionOfBook() {
         return criteria -> book -> {
-            long price;
+            double price;
             try {
-                price = Long.parseLong(criteria);
+                price = Double.parseDouble(criteria);
             } catch (NumberFormatException e) {
                 return book.getAuthor().equals(criteria) ||
                         book.getCategory().equals(criteria) ||
