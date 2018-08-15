@@ -1,20 +1,20 @@
-POST http://localhost:8080/api/itcompany/login
+POST http://localhost:8080/itcompany/login
 
 ###
 
-GET http://localhost:8080/api/itcompany/list
-Authorization: {palce to token}
-
-###
-
-GET http://localhost:8080/api/itcompany/3
-Authorization: {palce to token}
-
-###
-
-POST http://localhost:8080/api/itcompany
+GET http://localhost:8080/itcompany/list
 Authorization: {place to token}
+
+###
+
+GET http://localhost:8080/itcompany/3
+Authorization: {place to token}
+
+###
+
+POST http://localhost:8080/itcompany
 Content-Type: application/json
+Authorization: {place to token}
 
 {
     "firstName": "Emma",
@@ -26,9 +26,9 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:8080/api/itcompany/3
-Authorization: {place to token}
+PUT http://localhost:8080/itcompany/11
 Content-Type: application/json
+Authorization: {place to token}
 
 {
     "firstName": "Emma",
@@ -40,22 +40,22 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:8080/api/itcompany/3
+DELETE http://localhost:8080/itcompany/11
 Authorization: {place to token}
 
 ###
 
-GET http://localhost:8080/api/itcompany/list?firstName=Romin
-Authorization: {palce to token}
+GET http://localhost:8080/itcompany/list?firstName=Linda
+Authorization: {place to token}
 
 ###
 
-GET http://localhost:8080/api/itcompany/list?email=romin.k.irani@gmail.com
-Authorization: {palce to token}
+GET http://localhost:8080/itcompany/list?email=blackus@mail.org
+Authorization: {place to token}
 
 ###
 
-GET http://localhost:8080/api/itcompany/list?skills=Java (web)
-Authorization: {palce to token}
+GET http://localhost:8080/itcompany/list?skills=Java (web)
+Authorization: {place to token}
 
 ###

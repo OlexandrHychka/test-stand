@@ -1,25 +1,25 @@
-POST http://localhost:8080/api/bookstore/login
+POST http://localhost:8080/bookstore/login
 Content-Type: application/json
 
 {
-    "username": "koot",
+    "username": "root",
     "password": "root"
 }
 
 ###
 
-POST http://localhost:8080/api/bookstore/login
+POST http://localhost:8080/bookstore/login
 
 ###
 
-GET http://localhost:8080/api/bookstore/book/list
+GET http://localhost:8080/bookstore/book/list
 Authorization: {place to token}
 
 ###
 
-POST http://localhost:8080/api/bookstore/book
-Authorization: {place to token}
+POST http://localhost:8080/bookstore/book
 Content-Type: application/json
+Authorization: {place to token}
 
 {
     "category": "novel",
@@ -27,3 +27,5 @@ Content-Type: application/json
     "title": "War and Piece",
     "price": "99.900"
 }
+
+###
