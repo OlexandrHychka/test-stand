@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/bookstore/book")
+@RequestMapping("/bookstore/book")
 public class SecuredBookController {
 
     private BaseService<Book> bookService;

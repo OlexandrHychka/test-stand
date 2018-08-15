@@ -25,12 +25,12 @@ public class AuthController extends AbstractHardcodeUserCredentialsEntity {
         this.authService = authService;
     }
 
-    @PostMapping("/api/bookstore/login")
+    @PostMapping("/bookstore/login")
     public ResponseEntity<JwtToken> signInBookstore(@RequestBody(required = false) AuthenticationRequest data) {
         return signIn(data);
     }
 
-    @PostMapping("/api/itcompany/login")
+    @PostMapping("/itcompany/login")
     public ResponseEntity<JwtToken> signInItCompany(@RequestBody(required = false) AuthenticationRequest data) {
         return signIn(data);
     }

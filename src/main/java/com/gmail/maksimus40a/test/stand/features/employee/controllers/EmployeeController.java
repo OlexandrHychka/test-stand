@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/api/itcompany")
+@RequestMapping("/itcompany")
 public class EmployeeController {
 
     private BaseService<Employee> employeeService;

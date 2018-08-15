@@ -59,9 +59,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/library/book/**").permitAll()
-                .antMatchers("/api/bookstore/login").permitAll()
-                .antMatchers("/api/itcompany/login").permitAll()
+                .antMatchers("/library/book/**").permitAll()
+                .antMatchers("/bookstore/login").permitAll()
+                .antMatchers("/itcompany/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(tokenProvider));
