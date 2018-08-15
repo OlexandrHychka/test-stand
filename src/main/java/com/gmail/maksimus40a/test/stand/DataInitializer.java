@@ -50,7 +50,6 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void initBooksData() throws IOException {
-
         List<Book> books = mapJsonFileToListEntities(PATH_TO_BOOKS_FILE, Book.class);
         books.forEach(bookRepository::addEntity);
     }
